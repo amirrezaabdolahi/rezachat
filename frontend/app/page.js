@@ -1,6 +1,7 @@
 import ChatHeader from "@/components/components/ChatHeader";
 import UserSiderBar from "@/components/components/UserSiderBar";
-import { ArrowBigLeft, ArrowLeft } from "lucide-react";
+import { messagesData } from "@/fakeDatas";
+import { ArrowBigLeft, ArrowLeft, CalendarArrowDown } from "lucide-react";
 import Image from "next/image";
 
 const user = {
@@ -19,15 +20,16 @@ export default function Home() {
 
                 {/* main chat view */}
                 <div className="col-span-9 grid grid-cols-1 gap-4 grid-rows-10 w-full h-full bg-white/10 rounded-lg p-2">
-
                     {/* chat header profile bar */}
                     <ChatHeader user={user} />
 
                     {/* chat view chat room */}
-                    <div className="bg-white/20 col-span-1 row-span-9 rounded-lg relative chat-main overflow-hidden ">
+                    <div className="bg-white/20 col-span-1 row-span-8 rounded-lg relative chat-main overflow-hidden ">
                         
                     </div>
 
+                    {/* chat send message input */}
+                    <div className="bg-white/20 col-span-1 row-span-1 rounded-lg overflow-hidden "></div>
                 </div>
             </div>
         </div>
