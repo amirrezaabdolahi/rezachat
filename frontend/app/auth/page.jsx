@@ -10,56 +10,46 @@ const page = () => {
         email: "",
         password: "",
     });
-    const [error, setError] = useState({
-        username: "",
-        email: "",
-        password: "",
-    });
+
+    const [errors, setErrors] = useState({});
 
     const validate = () => {
+        const error = {};
+
         if (!formData.username.trim() && mode === "signin") {
-            setError((prev) => ({
-                ...prev,
-                username: "username is required",
-            }));
-        } else if (!formData.password.trim() && mode === "signin") {
-            setError((prev) => ({
-                ...prev,
-                password: "password is required",
-            }));
-        } else if (!formData.username.trim() && mode === "signup") {
-            setError((prev) => ({
-                ...prev,
-                username: "username is required",
-            }));
-        } else if (!formData.email.trim() && mode === "signup") {
-            setError((prev) => ({
-                ...prev,
-                email: "email is required",
-            }));
-        } else if (!formData.password.trim() && mode === "signup") {
-            setError((prev) => ({
-                ...prev,
-                password: "password is required",
-            }));
-        } else {
-            setError({
-                username: "",
-                email: "",
-                password: "",
-            });
+            error.username = "username is required";
+        }
+        if (!formData.password.trim() && mode === "signin") {
+            error.password = "password is required";
+        } else if (formData.password.trim().length < 6) {
+            error.password = "password must be 6 character or more";
+        }
+        if (!formData.username.trim() && mode === "signup") {
+            error.username = "username is required";
+        }
+        if (!formData.email.trim() && mode === "signup") {
+            error.email = "email is required";
+        }
+        if (!formData.password.trim() && mode === "signup") {
+            error.password = "password is required";
         }
 
-        return error;
+        return {
+            isValid: Object.keys(error).length === 0,
+            error,
+        };
     };
 
     const handleSubmit = async () => {
-        validate();
+        const { isValid, error } = validate();
 
-        console.log(error);
+        if (!isValid) {
+            setErrors(error);
+            return;
+        }
+
+        setErrors({});
     };
-
-    console.log(mode);
 
     return (
         <div className="container mx-auto">
@@ -91,9 +81,9 @@ const page = () => {
                                     });
                                 }}
                             />
-                            {error.username && (
+                            {Boolean(errors.username) && (
                                 <p className="text-sm text-red-500">
-                                    {error.username}
+                                    {errors.username}
                                 </p>
                             )}
                             <input
@@ -107,9 +97,9 @@ const page = () => {
                                     });
                                 }}
                             />
-                            {error.password && (
+                            {Boolean(errors.password) && (
                                 <p className="text-sm text-red-500">
-                                    {error.password}
+                                    {errors.password}
                                 </p>
                             )}
                         </div>
@@ -126,9 +116,9 @@ const page = () => {
                                     });
                                 }}
                             />
-                            {error.username && (
+                            {Boolean(errors.username) && (
                                 <p className="text-sm text-red-500">
-                                    {error.username}
+                                    {errors.username}
                                 </p>
                             )}
                             <input
@@ -142,9 +132,9 @@ const page = () => {
                                     });
                                 }}
                             />
-                            {error.email && (
+                            {Boolean(errors.email) && (
                                 <p className="text-sm text-red-500">
-                                    {error.email}
+                                    {errors.email}
                                 </p>
                             )}
                             <input
@@ -158,9 +148,9 @@ const page = () => {
                                     });
                                 }}
                             />
-                            {error.password && (
+                            {Boolean(errors.password) && (
                                 <p className="text-sm text-red-500">
-                                    {error.password}
+                                    {errors.password}
                                 </p>
                             )}
                         </div>
