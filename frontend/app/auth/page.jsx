@@ -1,6 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import {
+    useSigninUserMutation,
+    useSignupUserMutation,
+} from "@/features/UserAuthApi";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const page = () => {
     const [mode, setMode] = useState("signin" || "signup");
@@ -13,6 +18,26 @@ const page = () => {
 
     const [errors, setErrors] = useState({});
 
+    const dispatch = useDispatch();
+    const [
+        signin,
+        {
+            isLoading: isSigninLoading,
+            isSuccess: isSigninSuccess,
+            data: signinData,
+            isError: isSigninError,
+        },
+    ] = useSigninUserMutation();
+    const [
+        signup,
+        {
+            isLoading: isSignupLoading,
+            isSuccess: isSignupSuccess,
+            data: signupData,
+            isError: isSignupError,
+        },
+    ] = useSignupUserMutation();
+
     const validate = () => {
         const error = {};
 
@@ -21,9 +46,10 @@ const page = () => {
         }
         if (!formData.password.trim() && mode === "signin") {
             error.password = "password is required";
-        } else if (formData.password.trim().length < 6) {
-            error.password = "password must be 6 character or more";
         }
+        // else if (formData.password.trim().length < 6) {
+        //     error.password = "password must be 6 character or more";
+        // }
         if (!formData.username.trim() && mode === "signup") {
             error.username = "username is required";
         }
@@ -49,6 +75,29 @@ const page = () => {
         }
 
         setErrors({});
+        try {
+            if (mode === "signin") {
+                const res = signin({
+                    username: formData.username,
+                    password: formData.password,
+                });
+
+                const data = await res;
+
+                console.log(signinData)
+
+                if (isSigninSuccess) {
+                    console.log("data success is : ", data.data.data);
+                } else {
+                    console.log("data error is : ", data);
+                }
+            }
+
+            if (mode === "signup") {
+            }
+        } catch (error) {
+            console.log("error in authentication user", error);
+        }
     };
 
     return (
@@ -159,8 +208,11 @@ const page = () => {
                     <Button
                         onClick={handleSubmit}
                         className={"active:scale-[0.9]"}
+                        disabled={isSignupLoading || isSigninLoading}
                     >
-                        Submit
+                        {isSignupLoading || isSigninLoading
+                            ? "Loading..."
+                            : "Submit"}
                     </Button>
                     <hr />
                     <p>OR {mode} WHIT</p>
