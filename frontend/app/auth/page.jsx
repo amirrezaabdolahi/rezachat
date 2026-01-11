@@ -4,11 +4,15 @@ import {
     useSigninUserMutation,
     useSignupUserMutation,
 } from "@/features/UserAuthApi";
+import { SetRefreshCookie, SetTokenCookie } from "@/lib/setCookie";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 const page = () => {
     const [mode, setMode] = useState("signin" || "signup");
+    const [authError, setAuthError] = useState({});
+    const router = useRouter();
 
     const [formData, setFormData] = useState({
         username: "",
@@ -82,18 +86,61 @@ const page = () => {
                     password: formData.password,
                 });
 
-                const data = await res;
+                const { data, error } = await res;
 
-                console.log(signinData)
+                if (!error) {
+                    if (data.success) {
+                        const { access, refresh } = data.data;
+                        await SetTokenCookie(access);
+                        await SetRefreshCookie(refresh);
 
-                if (isSigninSuccess) {
-                    console.log("data success is : ", data.data.data);
-                } else {
-                    console.log("data error is : ", data);
+                        setFormData({
+                            username: "",
+                            email: "",
+                            password: "",
+                        });
+
+                        router.push("/");
+                    }
                 }
             }
 
             if (mode === "signup") {
+                const res = signup({
+                    ...formData,
+                });
+
+                const { data, error } = await res;
+
+                if (!error) {
+                    if (data.success) {
+                        const signinRes = signin({
+                            username : formData.username,
+                            password : formData.password,
+                        });
+
+                        const { data: resData, error: resError } =
+                            await signinRes;
+
+                        if (!resError) {
+                            if (resData.success) {
+                                const { access, refresh } = resData.data;
+                                await SetTokenCookie(access);
+                                await SetRefreshCookie(refresh);
+
+                                setFormData({
+                                    username: "",
+                                    email: "",
+                                    password: "",
+                                });
+
+                                router.push("/");
+                            }
+                        }
+                    }
+                } else {
+                    console.log(error);
+                }
             }
         } catch (error) {
             console.log("error in authentication user", error);
