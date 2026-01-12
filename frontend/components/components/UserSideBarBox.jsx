@@ -1,20 +1,21 @@
-"use client"
+"use client";
 
 import React from "react";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { chatActions } from "@/features/chatSlice";
+import { messagesData } from "@/fakeDatas";
 
 const UserSideBarBox = ({ user }) => {
-
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     return (
         <div
             key={user.id}
             className="w-full p-2 flex items-center justify-between bg-white/30 rounded-lg hover:bg-white/40 select-none active:bg-white/50 "
             onClick={() => {
-                dispatch(chatActions.selectChat(user.id))
+                dispatch(chatActions.selectChat(user.id));
+                dispatch(chatActions.messages(messagesData.data[user.id].messages));
             }}
         >
             <div className="flex gap-2 items-center">

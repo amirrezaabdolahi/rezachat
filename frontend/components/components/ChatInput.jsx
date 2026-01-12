@@ -1,28 +1,34 @@
 "use client";
 import { messagesData } from "@/fakeDatas";
+import { chatActions } from "@/features/chatSlice";
+import { nanoid } from "@reduxjs/toolkit";
 import { Send } from "lucide-react";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const ChatInput = () => {
     const [inputMessage, setInputMessage] = useState("");
     const currentChat = useSelector((state) => state.chat.selectedChat);
-    const filteredChat = messagesData.data.filter(
-        (chat) => chat.id === Number(currentChat)
-    );
+    const messages = useSelector((state) => state.chat.messages);
+
+    const dispatch = useDispatch();
 
     const handleSendMessage = async () => {
+        if (!currentChat) {
+            return;
+        }
 
+        dispatch(
+            chatActions.addMessage({
+                id: nanoid(),
+                chat: currentChat,
+                sender: "root",
+                message: inputMessage,
+                created_at: new Date().toLocaleString(),
+            })
+        );
 
-        console.log(filteredChat[0].messages);
-
-        filteredChat[0].messages.push({
-            id: filteredChat[0].messages.length + 1,
-            chat: 4,
-            sender: "root",
-            message: inputMessage,
-            created_at: new Date().toLocaleString(),
-        });
+        setInputMessage("");
     };
 
     return (
@@ -34,6 +40,7 @@ const ChatInput = () => {
                     onChange={(e) => {
                         setInputMessage(e.target.value);
                     }}
+                    placeholder="Message"
                 />
             </div>
             <button

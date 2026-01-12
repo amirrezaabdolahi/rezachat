@@ -6,6 +6,7 @@ import { chatActions } from "@/features/chatSlice";
 
 const ChatSection = ({ messagesData, user }) => {
     const currentChat = useSelector((state) => state.chat.selectedChat);
+    const messages = useSelector((state) => state.chat.messages);
     const dispatch = useDispatch();
 
     if (!currentChat) {
@@ -14,14 +15,11 @@ const ChatSection = ({ messagesData, user }) => {
                 <p>no chat seleted</p>
             </div>
         );
-    } 
-
-    const filteredChat = messagesData.data.filter(chat => (chat.id === Number(currentChat)))
-
+    }
 
     return (
         <div className="absolute left-0 right-0 bottom-0 p-4">
-            {filteredChat[0].messages.map((message) => (
+            {messages?.map((message) => (
                 <React.Fragment key={message.id}>
                     {message.sender === user.username ? (
                         <div className="bg-white text-black mt-2 justify-self-end p-2 px-4 rounded-tl-full rounded-tr-full  rounded-bl-full ">

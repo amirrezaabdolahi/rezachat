@@ -1,12 +1,28 @@
+"use client"
+
+
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
+import { useDispatch } from "react-redux";
+import { chatActions } from "@/features/chatSlice";
+
+
 const ChatHeader = ({user}) => {
+
+
+    const dispatch = useDispatch()
+
+
+
+
     return (
         <div className="bg-white/30 col-span-1 row-span-1 rounded-lg p-2">
             <div className="flex items-center justify-between w-full h-full select-none">
-                <div className="bg-white/40 p-2 rounded-full hover:bg-white/50 active:bg-white/60">
+                <div className="bg-white/40 p-2 rounded-full hover:bg-white/50 active:bg-white/60" onClick={() => {
+                    dispatch(chatActions.selectChat(null))
+                }}>
                     <ArrowLeft />
                 </div>
                 <div className="w-13 h-13 rounded-full relative bg-white/40 flex items-center justify-center object-cover ">
