@@ -1,7 +1,7 @@
 "use client";
 import { messagesData } from "@/fakeDatas";
 import { chatActions } from "@/features/chatSlice";
-import { imojis } from "@/lib/imojisData";
+import { emojis } from "@/lib/imojisData";
 import { nanoid } from "@reduxjs/toolkit";
 import { Send } from "lucide-react";
 import React, { useState } from "react";
@@ -11,10 +11,22 @@ const ChatInput = () => {
     const [inputMessage, setInputMessage] = useState("");
     const currentChat = useSelector((state) => state.chat.selectedChat);
     const messages = useSelector((state) => state.chat.messages);
+    const [emojisType, setEmojisType] = useState("all");
+    const [emoji, setEmoji] = useState(
+        emojis.map((obj) =>
+            emojisType === "all"
+                ? obj.icons
+                : obj.type === emojisType
+                ? obj.icons
+                : []
+        )
+    );
 
-    const [isImojiPanelOpen, setIsImojiPanelOpen] = useState(false);
+    const [isEmojiPanelOpen, setIsEmojiPanelOpen] = useState(true);
 
     const dispatch = useDispatch();
+
+    console.log(emoji);
 
     const handleSendMessage = async () => {
         if (!currentChat) {
@@ -35,10 +47,10 @@ const ChatInput = () => {
     };
 
     const handleImojiPanelOpen = () => {
-        setIsImojiPanelOpen(!isImojiPanelOpen)
-    }
+        setIsEmojiPanelOpen(!isEmojiPanelOpen);
+    };
 
-    console.log(isImojiPanelOpen);
+    console.log(isEmojiPanelOpen);
 
     return (
         <>
@@ -67,9 +79,56 @@ const ChatInput = () => {
                 </button>
             </div>
 
-            <div className="absolute top-0 right-0 w-100 h-auto">
-                <div>
-                    {/* {imojis.} */}
+            <div
+                className={`
+                absolute right-0 w-100 h-auto bg-black/50 transition-all duration-300 rounded-lg  p-4
+                 ${
+                     isEmojiPanelOpen
+                         ? "bottom-full scale-100 opacity-100 backdrop-blur-xl"
+                         : "bottom-0 scale-0 opacity-0 backdrop-blur-sm"
+                 }`}
+            >
+                <div
+                    className="w-full text-end cursor-pointer "
+                    onClick={handleImojiPanelOpen}
+                >
+                    ❌
+                </div>
+                <div className="grid grid-cols-12">
+                    <div className="col-span-12">
+                        {emoji.map((obj, index) => (
+                            <div
+                                key={index}
+                                className="w-full grid grid-cols-6 border-b items-center justify-center py-2"
+                            >
+                                {obj.map((icon) => (
+                                    <button
+                                        key={icon.id}
+                                        className="text-xl text-center cursor-pointer"
+                                        onClick={() =>
+                                            setInputMessage(
+                                                (prev) => prev + icon.icon
+                                            )
+                                        }
+                                    >
+                                        {icon.icon}
+                                    </button>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                    {/* <div className="col-span-2 text-center flex justify-center flex-col">
+                        {emojis.map((emoji) => (
+                            <div
+                                className="cursor-pointer text-xl hover:scale-[1.1]"
+                                aria-label={emoji.type}
+                                key={emoji.id}
+                                onClick={() => setEmojisType(emoji.type)}
+                            >
+                                <button>{emoji.typeIcon}</button>
+                            </div>
+                        ))}
+                    </div> */}
                 </div>
             </div>
         </>

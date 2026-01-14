@@ -38,7 +38,7 @@ export default function Home() {
                     </div>
 
                     {/* chat send message input */}
-                    <div className=" col-span-1 row-span-1 rounded-lg overflow-hidden ">
+                    <div className=" col-span-1 row-span-1 rounded-lg   relative">
                         <ChatInput />
                     </div>
                 </div>

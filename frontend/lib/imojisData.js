@@ -1,4 +1,4 @@
-export const imojis = [
+export const emojis = [
     {
         id: 1,
         type: "face",

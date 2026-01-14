@@ -14,7 +14,7 @@ const UserSideBarBox = ({ chat }) => {
     return (
         <div
             key={chat.id}
-            className="w-full p-2 flex items-center justify-between bg-white/30 rounded-lg hover:bg-white/40 select-none active:bg-white/50 "
+            className="w-full overflow-hidden p-2 flex items-center justify-between bg-white/30 rounded-lg hover:bg-white/40 select-none active:bg-white/50 "
             onClick={() => {
                 dispatch(chatActions.selectChat(chat.id));
                 dispatch(chatActions.messages(chat.messages));
