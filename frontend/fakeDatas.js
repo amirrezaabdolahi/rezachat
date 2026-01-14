@@ -261,13 +261,11 @@ export const chats = [
                 id: 1,
                 username: "root",
                 email: "root@gmail.com",
-                status: "online",
             },
             {
                 id: 2,
                 username: "amir",
                 email: "amir@gmail.com",
-                status: "offline",
             },
         ],
         created_at: "2026-01-05T11:02:19.656858Z",
@@ -276,7 +274,7 @@ export const chats = [
                 id: 1,
                 chat: 1,
                 sender: "root",
-                message: "hi amit its root",
+                message: "hi amir its root",
                 created_at: "2026-01-05T12:26:31.378820Z",
             },
             {
@@ -338,7 +336,7 @@ export const chats = [
                 id: 1,
                 chat: 1,
                 sender: "root",
-                message: "hi amit its root",
+                message: "hi ali its root",
                 created_at: "2026-01-05T12:26:31.378820Z",
             },
             {

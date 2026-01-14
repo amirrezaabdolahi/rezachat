@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "@/features/chatSlice";
 
-const ChatSection = ({ messagesData, user }) => {
+const ChatSection = () => {
     const currentChat = useSelector((state) => state.chat.selectedChat);
+    const currentUser = useSelector((state) => state.user);
     const messages = useSelector((state) => state.chat.messages);
-    const dispatch = useDispatch();
 
     if (!currentChat) {
         return (
@@ -21,7 +21,7 @@ const ChatSection = ({ messagesData, user }) => {
         <div className="absolute left-0 right-0 bottom-0 p-4">
             {messages?.map((message) => (
                 <React.Fragment key={message.id}>
-                    {message.sender === user.username ? (
+                    {message.sender === currentUser.username ? (
                         <div className="bg-white text-black mt-2 justify-self-end p-2 px-4 rounded-tl-full rounded-tr-full  rounded-bl-full ">
                             {message.message}
                         </div>

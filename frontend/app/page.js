@@ -34,7 +34,7 @@ export default function Home() {
 
                     {/* chat view chat room */}
                     <div className=" col-span-1 row-span-8 rounded-lg relative chat-main overflow-hidden ">
-                        <ChatSection messagesData={messagesData} user={user} />
+                        <ChatSection />
                     </div>
 
                     {/* chat send message input */}
