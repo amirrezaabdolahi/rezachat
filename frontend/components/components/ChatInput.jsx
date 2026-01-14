@@ -1,6 +1,7 @@
 "use client";
 import { messagesData } from "@/fakeDatas";
 import { chatActions } from "@/features/chatSlice";
+import { imojis } from "@/lib/imojisData";
 import { nanoid } from "@reduxjs/toolkit";
 import { Send } from "lucide-react";
 import React, { useState } from "react";
@@ -10,6 +11,8 @@ const ChatInput = () => {
     const [inputMessage, setInputMessage] = useState("");
     const currentChat = useSelector((state) => state.chat.selectedChat);
     const messages = useSelector((state) => state.chat.messages);
+
+    const [isImojiPanelOpen, setIsImojiPanelOpen] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -31,25 +34,45 @@ const ChatInput = () => {
         setInputMessage("");
     };
 
+    const handleImojiPanelOpen = () => {
+        setIsImojiPanelOpen(!isImojiPanelOpen)
+    }
+
+    console.log(isImojiPanelOpen);
+
     return (
-        <div className="w-full flex gap-2 h-full p-2 ">
-            <div className=" w-full h-full bg-white rounded-full text-end flex items-center p-2">
-                <input
-                    className="w-full h-full text-black outline-0"
-                    value={inputMessage}
-                    onChange={(e) => {
-                        setInputMessage(e.target.value);
-                    }}
-                    placeholder="Message"
-                />
+        <>
+            <div className="w-full flex gap-2 h-full p-2 ">
+                <div className=" w-full h-full bg-white rounded-full text-end flex items-center p-2">
+                    <input
+                        className="w-full h-full text-black outline-0"
+                        value={inputMessage}
+                        onChange={(e) => {
+                            setInputMessage(e.target.value);
+                        }}
+                        placeholder="Message"
+                    />
+                </div>
+                <button
+                    onClick={handleImojiPanelOpen}
+                    className="bg-white hover:bg-white/70 active:bg-white/80 active:scale-[0.9] transition-all text-black w-20 h-full rounded-full flex items-center justify-center cursor-pointer text-2xl"
+                >
+                    😀
+                </button>
+                <button
+                    onClick={handleSendMessage}
+                    className="bg-white hover:bg-white/70 active:bg-white/80 active:scale-[0.9] transition-all text-black w-20 h-full rounded-full flex items-center justify-center cursor-pointer"
+                >
+                    <Send />
+                </button>
             </div>
-            <button
-                onClick={handleSendMessage}
-                className="bg-white hover:bg-white/70 active:bg-white/80 active:scale-[0.9] transition-all text-black w-20 h-full rounded-full flex items-center justify-center cursor-pointer"
-            >
-                <Send />
-            </button>
-        </div>
+
+            <div className="absolute top-0 right-0 w-100 h-auto">
+                <div>
+                    {/* {imojis.} */}
+                </div>
+            </div>
+        </>
     );
 };
 
