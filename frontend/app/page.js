@@ -30,7 +30,7 @@ export default function Home() {
                 {/* main chat view */}
                 <div className="col-span-9 grid grid-cols-1 gap-4 grid-rows-10 w-full h-full bg-white/10 rounded-lg p-2 relative">
                     {/* chat header profile bar */}
-                    <ChatHeader user={user} />
+                    <ChatHeader />
 
                     {/* chat view chat room */}
                     <div className=" col-span-1 row-span-8 rounded-lg relative chat-main overflow-hidden ">

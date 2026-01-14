@@ -1,35 +1,47 @@
-"use client"
-
+"use client";
 
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "@/features/chatSlice";
+import { chats } from "@/fakeDatas";
 
+const ChatHeader = () => {
+    const dispatch = useDispatch();
+    const currentChatId = useSelector((state) => state.chat.selectedChat);
+    const currentUser = useSelector((state) => state.user);
+    const contact = currentChatId
+        ? chats
+              .filter((chat) => chat.id === currentChatId)[0]
+              .users.filter((user) => user.id !== currentUser.id)[0]
+        : null;
 
-const ChatHeader = ({user}) => {
-
-
-    const dispatch = useDispatch()
-
-
-
+    if (!currentChatId && !contact) {
+        return (
+            <div className=" bg-white/30 col-span-1 row-span-1 flex items-center justify-center rounded-lg p-2">
+                <p>contacts profile</p>
+            </div>
+        );
+    }
 
     return (
         <div className="bg-white/30 col-span-1 row-span-1 rounded-lg p-2">
             <div className="flex items-center justify-between w-full h-full select-none">
-                <div className="bg-white/40 p-2 rounded-full hover:bg-white/50 active:bg-white/60" onClick={() => {
-                    dispatch(chatActions.selectChat(null))
-                }}>
+                <div
+                    className="bg-white/40 p-2 rounded-full hover:bg-white/50 active:bg-white/60"
+                    onClick={() => {
+                        dispatch(chatActions.selectChat(null));
+                    }}
+                >
                     <ArrowLeft />
                 </div>
                 <div className="w-13 h-13 rounded-full relative bg-white/40 flex items-center justify-center object-cover ">
-                    {user.profile ? (
+                    {contact.profile ? (
                         <Image
-                            src={user.profile}
-                            alt={"user profile image"}
+                            src={contact.profile}
+                            alt={"contact profile image"}
                             className="w-full h-full rounded-full"
                             width={100}
                             height={100}
@@ -37,14 +49,14 @@ const ChatHeader = ({user}) => {
                     ) : (
                         <Image
                             src={"/profile.jpg"}
-                            alt={"user profile image"}
+                            alt={"contact profile image"}
                             className="w-full h-full rounded-full"
                             width={100}
                             height={100}
                         />
                     )}
 
-                    {user.status === "online" ? (
+                    {contact.status === "online" ? (
                         <div className="absolute w-3 h-3 bg-green-400 bottom-0 right-1 rounded-full" />
                     ) : null}
                 </div>

@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'main_app.apps.MainAppConfig',
     'user.apps.UserConfig',
+    'rest_framework.authtoken',
+    'accounts.apps.AccountsConfig'
 
 ]
 
@@ -125,10 +127,10 @@ REST_FRAMEWORK = {
     ]
 }
 
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),  # token valid for 7 days
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # refresh token valid for 30 days
-}
+# SIMPLE_JWT = {
+#     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),  # token valid for 7 days
+#     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # refresh token valid for 30 days
+# }
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
