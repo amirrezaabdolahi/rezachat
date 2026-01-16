@@ -13,13 +13,6 @@ import {
 import Image from "next/image";
 import React from "react";
 
-const user = {
-    id: 1,
-    username: "root",
-    email: "amirenzevadev@gmail.com",
-    status: "online",
-};
-
 export default function Home() {
     return (
         <div className="container w-full mx-auto h-screen flex items-center">
