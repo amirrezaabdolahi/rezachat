@@ -22,7 +22,7 @@ const ChatInput = () => {
         )
     );
 
-    const [isEmojiPanelOpen, setIsEmojiPanelOpen] = useState(true);
+    const [isEmojiPanelOpen, setIsEmojiPanelOpen] = useState(false);
 
     const dispatch = useDispatch();
 

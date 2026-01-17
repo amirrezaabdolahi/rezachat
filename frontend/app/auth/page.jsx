@@ -90,9 +90,8 @@ const page = () => {
 
                 if (!error) {
                     if (data.success) {
-                        const { access, refresh } = data.data;
-                        await SetTokenCookie(access);
-                        await SetRefreshCookie(refresh);
+                        const { token } = data.data;
+                        await SetTokenCookie(token);
 
                         setFormData({
                             username: "",
@@ -107,7 +106,9 @@ const page = () => {
 
             if (mode === "signup") {
                 const res = signup({
-                    ...formData,
+                    username : formData.username,
+                    email : formData.email,
+                    password : formData.password
                 });
 
                 const { data, error } = await res;
@@ -115,8 +116,8 @@ const page = () => {
                 if (!error) {
                     if (data.success) {
                         const signinRes = signin({
-                            username : formData.username,
-                            password : formData.password,
+                            username: formData.username,
+                            password: formData.password,
                         });
 
                         const { data: resData, error: resError } =
@@ -124,9 +125,8 @@ const page = () => {
 
                         if (!resError) {
                             if (resData.success) {
-                                const { access, refresh } = resData.data;
-                                await SetTokenCookie(access);
-                                await SetRefreshCookie(refresh);
+                                const { token } = resData.data;
+                                await SetTokenCookie(token);
 
                                 setFormData({
                                     username: "",

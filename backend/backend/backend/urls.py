@@ -29,7 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/chat/', include('main_app.urls')),
     path('api/accounts/' , include('accounts.urls')),
-    path("api-token-auth/" , views.ObtainAuthToken.as_view() ),
+    path("api-token-auth/" , views.obtain_auth_token ),
     # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ] + static(settings.MEDIA_URL , document_root=settings.MEDIA_ROOT)
