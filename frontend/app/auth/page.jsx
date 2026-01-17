@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 
 const page = () => {
     const [mode, setMode] = useState("signin" || "signup");
-    const [authError, setAuthError] = useState({});
+    const [authError, setAuthError] = useState();
     const router = useRouter();
 
     const [formData, setFormData] = useState({
@@ -101,14 +101,17 @@ const page = () => {
 
                         router.push("/");
                     }
+                    setAuthError(null);
+                } else {
+                    setAuthError("cant log in in whit provided credentials.");
                 }
             }
 
             if (mode === "signup") {
                 const res = signup({
-                    username : formData.username,
-                    email : formData.email,
-                    password : formData.password
+                    username: formData.username,
+                    email: formData.email,
+                    password: formData.password,
                 });
 
                 const { data, error } = await res;
@@ -137,9 +140,10 @@ const page = () => {
                                 router.push("/");
                             }
                         }
+                        setAuthError(null);
                     }
                 } else {
-                    console.log(error);
+                    setAuthError(error.data.message);
                 }
             }
         } catch (error) {
@@ -271,6 +275,25 @@ const page = () => {
                             Github
                         </Button>
                     </div>
+                    {authError && mode === "signin" ? (
+                        <div className="w-full text-red-500 text-center">
+                            <p>{authError}</p>
+                        </div>
+                    ) : authError && mode === "signup" ? (
+                        <div className="w-full text-red-500 text-center">
+                            {authError?.username && (
+                                <p>username : {authError.username}</p>
+                            )}
+                            {authError?.email && (
+                                <p>email : {authError.email}</p>
+                            )}
+                            {authError?.password && (
+                                <p>password : {authError.password}</p>
+                            )}
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                 </div>
             </div>
         </div>

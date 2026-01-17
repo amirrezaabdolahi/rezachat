@@ -1,12 +1,10 @@
-"use server"
+"use server";
 
-import { cookies } from "next/headers"
-
-
+import { cookies } from "next/headers";
 
 export async function SetTokenCookie(data) {
-    (await cookies()).set("Token" , data)
+    (await cookies()).set("Token", data);
 }
-export async function SetRefreshCookie(data) {
-    (await cookies()).set("Refresh" , data)
+export async function GetTokenCookie() {
+    const token = (await cookies()).get("Token");
 }

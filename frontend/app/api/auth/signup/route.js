@@ -4,7 +4,7 @@ export async function POST(request) {
     try {
         const body = await request.json();
 
-        console.log(body);
+        console.log(JSON.stringify(body));
         const res = await fetch(
             `${process.env.BASE_BACKEND_URL}api/accounts/register/`,
             {
