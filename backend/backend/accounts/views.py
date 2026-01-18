@@ -3,7 +3,9 @@ from rest_framework.views import APIView
 from .serializers import UserSerializer
 from rest_framework import status
 from django.contrib.auth.models import User
-from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
+from main_app.models import PrivateChat
+from main_app.serializers import PrivateChatSerializer
 
 # Create your views here.
 
@@ -19,3 +21,25 @@ class UserRegisterView(APIView):
             )
             return Response({"success": True, "data": ser_data.data } , status=status.HTTP_201_CREATED)
         return Response({"success": False, "error": ser_data.errors} , status=status.HTTP_400_BAD_REQUEST)
+    
+
+class UsersDatas(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self , request):
+        user = request.user
+        ser_user = UserSerializer(user)
+        chats = PrivateChat.objects.get(user1 = user)   
+        ser_chats = PrivateChatSerializer(chats , many=True)
+
+        return Response({"user" : ser_user.data , "chats" : ser_chats})
+
+
+
+
+
+
+
+
+
