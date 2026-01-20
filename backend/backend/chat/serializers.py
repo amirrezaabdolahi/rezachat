@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Chat, Message
 
+
 # --------------------------
 # User Serializer (basic)
 # --------------------------
@@ -18,7 +19,23 @@ class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = "__all__"
-        read_only_fields = ["id", "timestamp", "sender"]
+        read_only_fields = ["id", "created_at", "sender"]
+
+
+# --------------------------
+# Sent Message Serializer
+# --------------------------
+
+class SentMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = "__all__"
+        read_only_fields = ["id", "created_at", "sender"]
+
+        def validate_content(self, value):
+            if not value.strip():
+                raise serializers.ValidationError("Content cannot be empty")
+            return value
 
 
 # --------------------------
@@ -26,13 +43,14 @@ class MessageSerializer(serializers.ModelSerializer):
 # --------------------------
 class ChatSerializer(serializers.ModelSerializer):
     users = UserSerializer(many=True, read_only=True)
+
     # messages = MessageSerializer(many=True, read_only=True)
     # last_message = serializers.SerializerMethodField()
 
     class Meta:
         model = Chat
         fields = ["id", "name", "users", "created_at"]
-        read_only_fields = ["id", "created_at" ]
+        read_only_fields = ["id", "created_at"]
 
     # def get_last_message(self, obj):
     #     last_msg = obj.messages.order_by("-timestamp").first()
@@ -50,4 +68,3 @@ class ChatCreateSerializer(serializers.ModelSerializer):
         model = Chat
         fields = ["name", "users"]
         read_only_fields = ["id"]
-
