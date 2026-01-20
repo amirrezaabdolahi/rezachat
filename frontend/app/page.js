@@ -2,18 +2,40 @@ import ChatHeader from "@/components/components/ChatHeader";
 import ChatInput from "@/components/components/ChatInput";
 import ChatSection from "@/components/components/ChatSection";
 import UserSiderBar from "@/components/components/UserSiderBar";
+import { cookies } from "next/headers";
 import React from "react";
 
-export default function Home() {
+export default async function Home() {
+    const token = (await cookies()).get("Token");
 
-    
+    console.log(token);
+
+    try {
+        const response = await fetch(
+            `${process.env.BASE_BACKEND_URL}api/chat/chats/`,
+            {
+                method: "GET",
+                headers: {
+                    Authorization: `Token ${token.value}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        if (!response.ok) throw new Error("Network response was not ok");
+
+        const data = await response.json();
+        console.log(data);
+    } catch (err) {
+        console.error(err);
+    }
 
     return (
         <div className="container w-full mx-auto h-screen flex items-center">
             <div className="grid grid-cols-12 w-full h-[90%] gap-4">
                 {/* sideBar for choose the the contact */}
                 <UserSiderBar />
-                
+
                 {/* main chat view */}
                 <div className="col-span-9 grid grid-cols-1 gap-4 grid-rows-10 w-full h-full bg-white/10 rounded-lg p-2 relative">
                     {/* chat header profile bar */}

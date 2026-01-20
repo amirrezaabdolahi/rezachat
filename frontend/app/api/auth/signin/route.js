@@ -4,12 +4,10 @@ export async function POST(request) {
     try {
         const body = await request.json();
         const res = await fetch(
-            `${process.env.BASE_BACKEND_URL}api-token-auth/`,
+            `${process.env.BASE_BACKEND_URL}api/accounts/api-token-auth/`,
             {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                credentials: "include",
                 body: JSON.stringify(body),
             }
         );
