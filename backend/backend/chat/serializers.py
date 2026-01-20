@@ -15,11 +15,9 @@ class UserSerializer(serializers.ModelSerializer):
 # Message Serializer
 # --------------------------
 class MessageSerializer(serializers.ModelSerializer):
-    sender = UserSerializer(read_only=True)
-
     class Meta:
         model = Message
-        fields = ["id", "chat", "sender", "content", "timestamp"]
+        fields = "__all__"
         read_only_fields = ["id", "timestamp", "sender"]
 
 
@@ -42,4 +40,14 @@ class ChatSerializer(serializers.ModelSerializer):
     #         return MessageSerializer(last_msg).data
     #     return None
 
+
+# --------------------------
+# Chat creating Serializer
+# --------------------------
+
+class ChatCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chat
+        fields = ["name", "users"]
+        read_only_fields = ["id"]
 

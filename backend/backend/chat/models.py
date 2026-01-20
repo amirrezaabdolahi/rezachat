@@ -11,7 +11,7 @@ class Chat(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name or f"Chat {self.id}"
+        return f"{self.name} {self.id} - {self.created_at} "
 
 
 class Message(models.Model):
@@ -27,6 +27,6 @@ class Message(models.Model):
     )
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.sender} - {self.timestamp}"
+    #
+    # def __str__(self):
+    #     return f"< {self.sender} > in < {self.chat.name} > at < {self.timestamp} >"
