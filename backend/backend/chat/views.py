@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserSerializer, ChatSerializer, MessageSerializer, ChatCreateSerializer, SentMessageSerializer
 from django.shortcuts import get_object_or_404
+from .models import Message
 
 
 class UserChats(APIView):
@@ -37,12 +38,20 @@ class Chat(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
-        user = request.user
-        chat = user.chats.get(pk=pk)
+        chat = get_object_or_404(
+            request.user.chats,
+            pk=pk
+        )
+
         messages = chat.messages.all()
-        ser_chat = ChatSerializer(chat)
-        ser_messages = MessageSerializer(messages, many=True)
-        return Response({'success': True, 'data': ser_chat.data, 'messages': ser_messages.data})
+
+        return Response(
+            {
+                "success": True,
+                "chat": ChatSerializer(chat).data,
+                "messages": MessageSerializer(messages, many=True).data,
+            }
+        )
 
 
 class UpdateChat(APIView):
@@ -92,5 +101,20 @@ class SentMessages(APIView):
                 sender=user,
                 chat=chat,
             )
-            return Response({"success": True, "data": SentMessageSerializer(message).data}, status=status.HTTP_201_CREATED)
+            return Response({"success": True, "data": SentMessageSerializer(message).data},
+                            status=status.HTTP_201_CREATED)
         return Response({"success": False, "data": ser_message.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DeleteMessages(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk):
+        user = request.user
+        message = get_object_or_404(
+            Message.objects,
+            pk=pk,
+            sender=user
+        )
+        message.delete()
+        return Response({"success": True}, status=status.HTTP_204_NO_CONTENT)
