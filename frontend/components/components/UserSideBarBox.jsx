@@ -4,12 +4,12 @@ import React from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "@/features/chatSlice";
+import { userSliceActions } from "@/features/userSlice";
 
 const UserSideBarBox = ({ chat }) => {
     const dispatch = useDispatch();
-    const currentUser = useSelector((state) => state.user);
-
-    const contact = chat.users.filter((user) => user.id !== currentUser.id)[0];
+    
+    const contact = chat.users.length >= 2 ? chat.users[1] : chat.users
 
     return (
         <div
@@ -17,7 +17,7 @@ const UserSideBarBox = ({ chat }) => {
             className="w-full overflow-hidden p-2 flex items-center justify-between bg-white/30 rounded-lg hover:bg-white/40 select-none active:bg-white/50 "
             onClick={() => {
                 dispatch(chatActions.selectChat(chat.id));
-                dispatch(chatActions.messages(chat.messages));
+                dispatch(userSliceActions.setContact(contact))
             }}
         >
             <div className="flex gap-2 items-center">

@@ -94,7 +94,10 @@ class SentMessages(APIView):
         user = request.user
         chat = get_object_or_404(user.chats, pk=pk)
 
-        ser_message = SentMessageSerializer(data=request.data)
+        ser_message = SentMessageSerializer(data={
+            **request.data,
+            "chat": pk
+        })
 
         if ser_message.is_valid():
             message = ser_message.save(

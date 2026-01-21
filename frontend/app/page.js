@@ -3,12 +3,18 @@ import ChatInput from "@/components/components/ChatInput";
 import ChatSection from "@/components/components/ChatSection";
 import UserSiderBar from "@/components/components/UserSiderBar";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import React from "react";
 
 export default async function Home() {
     const token = (await cookies()).get("Token");
 
-    console.log(token);
+    let chats = []
+    let currentUser = null
+
+    if (!token?.value) {
+        redirect('/auth')
+    }
 
     try {
         const response = await fetch(
@@ -16,8 +22,7 @@ export default async function Home() {
             {
                 method: "GET",
                 headers: {
-                    Authorization: `Token ${token.value}`,
-                    "Content-Type": "application/json",
+                    "Authorization": `Token ${token.value}`,
                 },
             }
         );
@@ -25,7 +30,8 @@ export default async function Home() {
         if (!response.ok) throw new Error("Network response was not ok");
 
         const data = await response.json();
-        console.log(data);
+        chats = data?.chats
+        currentUser = data?.user
     } catch (err) {
         console.error(err);
     }
@@ -34,7 +40,7 @@ export default async function Home() {
         <div className="container w-full mx-auto h-screen flex items-center">
             <div className="grid grid-cols-12 w-full h-[90%] gap-4">
                 {/* sideBar for choose the the contact */}
-                <UserSiderBar />
+                <UserSiderBar chats={chats} currentUser={currentUser} />
 
                 {/* main chat view */}
                 <div className="col-span-9 grid grid-cols-1 gap-4 grid-rows-10 w-full h-full bg-white/10 rounded-lg p-2 relative">
@@ -42,7 +48,7 @@ export default async function Home() {
                     <ChatHeader />
 
                     {/* chat view chat room */}
-                    <div className=" col-span-1 row-span-8 rounded-lg relative chat-main overflow-hidden ">
+                    <div className=" col-span-1 max-h-full row-span-8 rounded-lg relative chat-main overflow-hidden ">
                         <ChatSection />
                     </div>
 

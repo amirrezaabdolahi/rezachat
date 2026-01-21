@@ -3,11 +3,14 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
     try {
         const body = await request.json();
+        console.log(JSON.stringify(body))
         const res = await fetch(
             `${process.env.BASE_BACKEND_URL}api/accounts/api-token-auth/`,
             {
                 method: "POST",
-                credentials: "include",
+                headers : {
+                    "Content-Type" : "application/json"
+                },
                 body: JSON.stringify(body),
             }
         );

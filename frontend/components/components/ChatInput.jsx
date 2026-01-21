@@ -1,8 +1,6 @@
 "use client";
-import { messagesData } from "@/fakeDatas";
-import { chatActions } from "@/features/chatSlice";
+import { useSendMessagesMutation } from "@/features/chatApi";
 import { emojis } from "@/lib/imojisData";
-import { nanoid } from "@reduxjs/toolkit";
 import { Send } from "lucide-react";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 const ChatInput = () => {
     const [inputMessage, setInputMessage] = useState("");
     const currentChat = useSelector((state) => state.chat.selectedChat);
-    const messages = useSelector((state) => state.chat.messages);
+
     const [emojisType, setEmojisType] = useState("all");
     const [emoji, setEmoji] = useState(
         emojis.map((obj) =>
@@ -24,33 +22,29 @@ const ChatInput = () => {
 
     const [isEmojiPanelOpen, setIsEmojiPanelOpen] = useState(false);
 
+    const [sendMessage, { isError, isLoading, data }] =
+        useSendMessagesMutation();
+
     const dispatch = useDispatch();
 
-    console.log(emoji);
-
     const handleSendMessage = async () => {
-        if (!currentChat) {
-            return;
+        if (!currentChat || !inputMessage.trim()) return;
+
+        try {
+            await sendMessage({
+                chatId: currentChat,
+                content: inputMessage,
+            }).unwrap();
+
+            setInputMessage("");
+        } catch (err) {
+            console.error("send message failed", err);
         }
-
-        dispatch(
-            chatActions.addMessage({
-                id: nanoid(),
-                chat: currentChat,
-                sender: "root",
-                message: inputMessage,
-                created_at: new Date().toLocaleString(),
-            })
-        );
-
-        setInputMessage("");
     };
 
     const handleImojiPanelOpen = () => {
         setIsEmojiPanelOpen(!isEmojiPanelOpen);
     };
-
-    console.log(isEmojiPanelOpen);
 
     return (
         <>
@@ -63,6 +57,9 @@ const ChatInput = () => {
                             setInputMessage(e.target.value);
                         }}
                         placeholder="Message"
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") handleSendMessage();
+                        }}
                     />
                 </div>
                 <button
@@ -73,6 +70,7 @@ const ChatInput = () => {
                 </button>
                 <button
                     onClick={handleSendMessage}
+                    disabled={isLoading }
                     className="bg-white hover:bg-white/70 active:bg-white/80 active:scale-[0.9] transition-all text-black w-20 h-full rounded-full flex items-center justify-center cursor-pointer"
                 >
                     <Send />
