@@ -18,7 +18,7 @@ const UserSiderBar = ({chats , currentUser}) => {
     console.log(chats);
 
     return (
-        <div className="col-span-3 bg-white/10 rounded-lg flex flex-col gap-2 p-2">
+        <div className="col-span-3 rounded-lg flex flex-col gap-2 p-2">
             {chats?.map((chat) => (
                 <UserSideBarBox key={chat.id} chat={chat} />
             ))}

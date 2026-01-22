@@ -1,6 +1,7 @@
 import ChatHeader from "@/components/components/ChatHeader";
 import ChatInput from "@/components/components/ChatInput";
 import ChatSection from "@/components/components/ChatSection";
+import ProfileBar from "@/components/components/ProfileBar";
 import UserSiderBar from "@/components/components/UserSiderBar";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -43,8 +44,12 @@ export default async function Home() {
                 <UserSiderBar chats={chats} currentUser={currentUser} />
 
                 {/* main chat view */}
-                <div className="col-span-9 grid grid-cols-1 gap-4 grid-rows-10 w-full h-full bg-white/10 rounded-lg p-2 relative">
+                <div className="col-span-9 grid grid-cols-1 gap-4 grid-rows-10 w-full h-full rounded-lg p-2 relative">
                     {/* chat header profile bar */}
+
+                    {/* <ProfileBar /> */}
+
+
                     <ChatHeader />
 
                     {/* chat view chat room */}

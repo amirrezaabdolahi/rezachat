@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     selectedChat: null,
+    chatInfo: {},
     messages: [],
 };
 
@@ -12,9 +13,15 @@ const chatSlice = createSlice({
         selectChat: (state, action) => {
             if (action.payload == state.selectedChat) {
                 state.selectedChat = null;
+                state.chatInfo = {};
                 return;
             }
             state.selectedChat = action.payload;
+        },
+        selectChatInfo: (state, action) => {
+            if (state.selectedChat) {
+                state.chatInfo = action.payload;
+            }
         },
         messages: (state, action) => {
             if (state.selectedChat === null) {
@@ -23,9 +30,9 @@ const chatSlice = createSlice({
             }
             state.messages = action.payload;
         },
-        addMessage : (state , action) => {
-            state.messages.push(action.payload)
-        }
+        addMessage: (state, action) => {
+            state.messages.push(action.payload);
+        },
     },
 });
 

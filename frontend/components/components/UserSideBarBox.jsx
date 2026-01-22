@@ -17,6 +17,7 @@ const UserSideBarBox = ({ chat }) => {
             className="w-full overflow-hidden p-2 flex items-center justify-between bg-white/30 rounded-lg hover:bg-white/40 select-none active:bg-white/50 "
             onClick={() => {
                 dispatch(chatActions.selectChat(chat.id));
+                dispatch(chatActions.selectChatInfo(chat))
                 dispatch(userSliceActions.setContact(contact))
             }}
         >
