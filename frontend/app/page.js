@@ -47,10 +47,10 @@ export default async function Home() {
                 <div className="col-span-9 grid grid-cols-1 gap-4 grid-rows-10 w-full h-full rounded-lg p-2 relative">
                     {/* chat header profile bar */}
 
-                    {/* <ProfileBar /> */}
+                    <ProfileBar />
 
 
-                    <ChatHeader />
+                    {/* <ChatHeader /> */}
 
                     {/* chat view chat room */}
                     <div className=" col-span-1 max-h-full row-span-8 rounded-lg relative chat-main overflow-hidden ">
