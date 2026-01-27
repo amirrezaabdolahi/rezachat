@@ -2,7 +2,9 @@ import ChatHeader from "@/components/components/ChatHeader";
 import ChatInput from "@/components/components/ChatInput";
 import ChatSection from "@/components/components/ChatSection";
 import ProfileBar from "@/components/components/ProfileBar";
+import SearchBox from "@/components/components/Search";
 import UserSiderBar from "@/components/components/UserSiderBar";
+import { ArrowRight, Search } from "lucide-react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -10,11 +12,11 @@ import React from "react";
 export default async function Home() {
     const token = (await cookies()).get("Token");
 
-    let chats = []
-    let currentUser = null
+    let chats = [];
+    let currentUser = null;
 
     if (!token?.value) {
-        redirect('/auth')
+        redirect("/auth");
     }
 
     try {
@@ -23,7 +25,7 @@ export default async function Home() {
             {
                 method: "GET",
                 headers: {
-                    "Authorization": `Token ${token.value}`,
+                    Authorization: `Token ${token.value}`,
                 },
             }
         );
@@ -31,8 +33,8 @@ export default async function Home() {
         if (!response.ok) throw new Error("Network response was not ok");
 
         const data = await response.json();
-        chats = data?.chats
-        currentUser = data?.user
+        chats = data?.chats;
+        currentUser = data?.user;
     } catch (err) {
         console.error(err);
     }
@@ -49,7 +51,6 @@ export default async function Home() {
 
                     <ProfileBar />
 
-
                     {/* <ChatHeader /> */}
 
                     {/* chat view chat room */}
@@ -63,6 +64,7 @@ export default async function Home() {
                     </div>
                 </div>
             </div>
+            <SearchBox />
         </div>
     );
 }

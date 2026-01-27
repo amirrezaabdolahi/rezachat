@@ -2,15 +2,18 @@
 
 import Image from "next/image";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import profileImg from "@/public/currentProfile.jpg";
 import { Search, Settings } from "lucide-react";
 import Link from "next/link";
+import { UiActions } from "@/features/uiSlice";
 
 const ProfileBar = () => {
     const currentUser = useSelector((s) => s.user.currentUser);
     const currentChat = useSelector((s) => s.chat.chatInfo);
     const contact = useSelector((s) => s.user.contact);
+
+    const dispatch = useDispatch();
 
     return (
         <div className=" rounded-xl flex items-center justify-between ">
@@ -22,9 +25,9 @@ const ProfileBar = () => {
                     : "rezachat"}
             </p>
             <div className="flex items-center gap-2">
-                
                 <div
                     className="w-13 h-13 hover:bg-white/30 transition-all rounded-full bg-white/20 flex items-center justify-center"
+                    onClick={() => dispatch(UiActions.toggleIsSearching(true))}
                 >
                     <Search />
                 </div>

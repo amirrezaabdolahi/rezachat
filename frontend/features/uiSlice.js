@@ -19,4 +19,6 @@ export const UiSlice = createSlice({
 })
 
 
+
+export const UiActions = UiSlice.actions
 export const UIReducer = UiSlice.reducer
