@@ -1,9 +1,22 @@
 "use client";
 
-import { ArrowRight, Search } from "lucide-react";
-import React from "react";
+import { ClockFading, Search } from "lucide-react";
+import React, { useState } from "react";
+import SearchUserBox from "./SearchUserBox";
+import { useLazySearchUsersQuery, useSearchUsersQuery } from "@/features/uiApi";
 
 const SearchBox = () => {
+    const [searchValue, setSearchValue] = useState("");
+    const [cleanSearch , setCleanSearch] = useState("")
+
+    if (searchValue.length > 2 && searchValue) {
+        setCleanSearch(searchValue)
+    }
+
+    const { isLoading, data, isError } = useLazySearchUsersQuery(cleanSearch);
+
+    console.log(data);
+
     return (
         <div className="absolute z-999 top-0 right-0 left-0 bottom-0 bg-black/50 flex items-center justify-center">
             <div className="w-100">
@@ -11,16 +24,15 @@ const SearchBox = () => {
                     <input
                         className="placeholder:text-xs flex items-center py-2 text-xs w-full outline-0 rounded-full border"
                         placeholder="search for new contacts"
+                        value={searchValue}
+                        onChange={(e) => {
+                            setSearchValue(e.target.value);
+                        }}
                     />
                     <Search className="cursor-pointer " />
                 </div>
-                <div className="w-full flex flex-col bg-black py-2 mt-2 rounded-lg ">
-                    <div className="py-2 px-4 rounded-full text-sm flex items-center justify-between bg-white/20">
-                        <p className="">root</p>
-                        <button className="bg-white text-black rounded-full px-4 cursor-pointer ">
-                            <ArrowRight className="" size={20} />
-                        </button>
-                    </div>
+                <div className="w-full flex flex-col gap-2 bg-black py-2 mt-2 rounded-lg ">
+                    <SearchUserBox />
                 </div>
             </div>
         </div>
