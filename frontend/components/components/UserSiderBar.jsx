@@ -22,7 +22,7 @@ const UserSiderBar = ({chats , currentUser}) => {
             {chats?.map((chat) => (
                 <UserSideBarBox key={chat.id} chat={chat} />
             ))}
-            <button className="w-full p-2 cursor-pointer hover:bg-white/90 active:bg-white/80 bg-white text-black rounded-lg flex items-center justify-center">
+            <button className=" p-2 mx-4 cursor-pointer hover:bg-white/90 active:bg-white/80 bg-white text-black rounded-lg flex items-center justify-center">
                 <Plus />
             </button>
         </div>

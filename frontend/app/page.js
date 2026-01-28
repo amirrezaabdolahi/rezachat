@@ -27,7 +27,7 @@ export default async function Home() {
                 headers: {
                     Authorization: `Token ${token.value}`,
                 },
-            }
+            },
         );
 
         if (!response.ok) throw new Error("Network response was not ok");
@@ -40,31 +40,22 @@ export default async function Home() {
     }
 
     return (
-        <div className="container w-full mx-auto h-screen flex items-center">
-            <div className="grid grid-cols-12 w-full h-[90%] gap-4">
-                {/* sideBar for choose the the contact */}
-                <UserSiderBar chats={chats} currentUser={currentUser} />
-
-                {/* main chat view */}
-                <div className="col-span-9 grid grid-cols-1 gap-4 grid-rows-10 w-full h-full rounded-lg p-2 relative">
-                    {/* chat header profile bar */}
-
+        <div className="container h-screen mx-auto flex items-center">
+            <div className="grid w-full grid-cols-6 h-[90%] gap-2 ">
+                <div className="col-span-2 h-full">
+                    <UserSiderBar chats={chats} currentUser={currentUser} />
+                </div>
+                <div className="col-span-4 h-full flex flex-col px-2 py-10  relative">
                     <ProfileBar />
-
-                    {/* <ChatHeader /> */}
-
-                    {/* chat view chat room */}
-                    <div className=" col-span-1 max-h-full row-span-8 rounded-lg relative chat-main overflow-hidden ">
+                    <div
+                        className="w-full max-h-200 flex flex-col overflow-auto"
+                        style={{ scrollbarWidth: "none" }}
+                    >
                         <ChatSection />
                     </div>
-
-                    {/* chat send message input */}
-                    <div className=" col-span-1 row-span-1 rounded-lg   relative">
-                        <ChatInput />
-                    </div>
+                    <ChatInput />
                 </div>
             </div>
-            <SearchBox />
         </div>
     );
 }

@@ -48,7 +48,7 @@ const ChatInput = () => {
 
     return (
         <>
-            <div className="w-full flex gap-2 h-full p-2 ">
+            <div className="w-full flex gap-2 h-20 p-2 absolute bottom-0 right-0 left-0 bg-black/20 z-999 backdrop-blur-2xl rounded-lg ">
                 <div className=" w-full h-full bg-white rounded-full text-end flex items-center p-2">
                     <input
                         className="w-full h-full text-black outline-0"
@@ -82,7 +82,7 @@ const ChatInput = () => {
                 absolute right-0 w-100 h-auto bg-black/50 transition-all duration-300 rounded-lg  p-4
                  ${
                      isEmojiPanelOpen
-                         ? "bottom-full scale-100 opacity-100 backdrop-blur-xl"
+                         ? "bottom-20 scale-100 opacity-100 backdrop-blur-xl"
                          : "bottom-0 scale-0 opacity-0 backdrop-blur-sm"
                  }`}
             >

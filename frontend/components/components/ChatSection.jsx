@@ -31,7 +31,7 @@ const ChatSection = () => {
         });
 
     return (
-        <div className="flex flex-col gap-2 overflow-y-auto h-full p-4">
+        <>
             {data.messages.length === 0 && (
                 <p className="text-center text-gray-400">No messages yet</p>
             )}
@@ -55,7 +55,7 @@ const ChatSection = () => {
                     </div>
                 );
             })}
-        </div>
+        </>
     );
 };
 

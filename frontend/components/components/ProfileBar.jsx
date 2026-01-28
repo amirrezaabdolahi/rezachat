@@ -16,13 +16,13 @@ const ProfileBar = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className=" rounded-xl flex items-center justify-between ">
+        <div className="rounded-xl absolute w-full bg-black/20 backdrop-blur-2xl z-999 p-2 flex items-center justify-between ">
             <p className="text-xl font-bold text-white">
                 {currentChat?.name
                     ? currentChat.name
                     : contact
-                    ? contact.username
-                    : "rezachat"}
+                      ? contact.username
+                      : "rezachat"}
             </p>
             <div className="flex items-center gap-2">
                 <div
