@@ -21,7 +21,7 @@ class Register(APIView):
 
 
 class SearchUser(APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get(self, request):
         query = request.query_params.get("q", "").strip()

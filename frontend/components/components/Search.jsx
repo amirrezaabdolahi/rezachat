@@ -7,15 +7,14 @@ import { useLazySearchUsersQuery, useSearchUsersQuery } from "@/features/uiApi";
 
 const SearchBox = () => {
     const [searchValue, setSearchValue] = useState("");
-    const [cleanSearch , setCleanSearch] = useState("")
 
-    if (searchValue.length > 2 && searchValue) {
-        setCleanSearch(searchValue)
-    }
+    const { isLoading, data, isError } = useSearchUsersQuery("amir");
 
-    const { isLoading, data, isError } = useLazySearchUsersQuery(cleanSearch);
-
-    console.log(data);
+    const handleSearch = () => {
+        if (!isLoading) {
+            console.log(data);
+        }
+    };
 
     return (
         <div className="absolute z-999 top-0 right-0 left-0 bottom-0 bg-black/50 flex items-center justify-center">
@@ -29,7 +28,10 @@ const SearchBox = () => {
                             setSearchValue(e.target.value);
                         }}
                     />
-                    <Search className="cursor-pointer " />
+                    <Search
+                        className="cursor-pointer "
+                        onClick={handleSearch}
+                    />
                 </div>
                 <div className="w-full flex flex-col gap-2 bg-black py-2 mt-2 rounded-lg ">
                     <SearchUserBox />
