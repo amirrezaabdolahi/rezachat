@@ -4,7 +4,7 @@ import ChatSection from "@/components/components/ChatSection";
 import ProfileBar from "@/components/components/ProfileBar";
 import SearchBox from "@/components/components/Search";
 import UserSiderBar from "@/components/components/UserSiderBar";
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight, CloudCog, Search } from "lucide-react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -47,11 +47,14 @@ export default async function Home() {
                 </div>
                 <div className="col-span-4 h-full flex flex-col px-2 py-10  relative">
                     <ProfileBar />
-                    <div
-                        className="w-full max-h-200 flex flex-col overflow-auto"
-                        style={{ scrollbarWidth: "none" }}
-                    >
-                        <ChatSection />
+                    <div className="w-full max-h-190 flex flex-col ">
+                        <div
+                            className="w-full h-full flex flex-col overflow-auto"
+                            style={{ scrollbarWidth: "none"  }}
+
+                        >
+                            <ChatSection />
+                        </div>
                     </div>
                     <ChatInput />
                 </div>
