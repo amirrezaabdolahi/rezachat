@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
     try {
         const body = await request.json();
-        console.log(JSON.stringify(body))
         const res = await fetch(
             `${process.env.BASE_BACKEND_URL}api/accounts/api-token-auth/`,
             {
@@ -28,7 +27,6 @@ export async function POST(request) {
             { status: res.status }
         );
     } catch (error) {
-        console.log("error in route auth is :  ", error);
         return NextResponse.json(
             { success: false, message: error.detail },
             { status: error.status }

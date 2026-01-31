@@ -4,6 +4,7 @@ const initialState = {
     selectedChat: null,
     chatInfo: {},
     messages: [],
+    selectedMessages: [],
 };
 
 const chatSlice = createSlice({
@@ -32,6 +33,19 @@ const chatSlice = createSlice({
         },
         addMessage: (state, action) => {
             state.messages.push(action.payload);
+        },
+        setSelectedsMessage: (state, action) => {
+            const message = action.payload;
+
+            const condition = state.selectedMessages.findIndex(
+                (msg) => Number(msg.id) === message.id,
+            );
+
+            if (condition >= 0) {
+                return;
+            } else {
+                state.selectedMessages.push(message);
+            }
         },
     },
 });

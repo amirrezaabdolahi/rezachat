@@ -13,7 +13,6 @@ export async function GET(request, { params }) {
     );
 
     const data = await res.json();
-    console.log(data);
     return Response.json(data);
 }
 export async function POST(request, { params }) {

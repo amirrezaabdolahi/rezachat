@@ -34,6 +34,9 @@ export async function GET(req) {
         // ⬅️ contract ثابت با frontend
         return NextResponse.json(data, { status: 200 });
     } catch (error) {
-        console.log(error);
+        return NextResponse.json(
+            { success: false, message: "خطا در ارتباط با Server بک‌اند" },
+            { status: res.status },
+        );
     }
 }

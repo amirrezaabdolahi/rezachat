@@ -15,8 +15,6 @@ const UserSiderBar = ({chats , currentUser}) => {
         dispath(userSliceActions.setUser(currentUser))
     }
 
-    console.log(chats);
-
     return (
         <div className="col-span-3 rounded-lg flex flex-col gap-2 p-2">
             {chats?.map((chat) => (

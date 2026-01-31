@@ -9,6 +9,8 @@ const ChatSection = () => {
     const currentChat = useSelector((s) => s.chat.selectedChat);
     const currentUser = useSelector((s) => s.user.currentUser);
 
+    const dispatch = useDispatch();
+
     const { data, isLoading, error } = useGetMessagesQuery(currentChat, {
         skip: !currentChat,
     });
@@ -30,6 +32,17 @@ const ChatSection = () => {
             minute: "2-digit",
         });
 
+    const handleMessageSelect = (e, message) => {
+        e.preventDefault();
+
+        // "dblclick"
+        // "contextmenu"
+
+        if (e.type === "dblclick") {
+            dispatch(chatActions.setSelectedsMessage(message));
+        }
+    };
+
     return (
         <>
             {data.messages.length === 0 && (
@@ -41,12 +54,16 @@ const ChatSection = () => {
                 return (
                     <div
                         key={message.id}
-                        className={`w-max mt-2 p-2 px-4 text-sm
-            ${
-                isMe
-                    ? "self-end bg-white text-black rounded-tl-full rounded-tr-full rounded-bl-full"
-                    : "self-start bg-black text-white rounded-tl-full rounded-tr-full rounded-br-full"
-            }`}
+                        className={`${message.content.length > 50 ? "w-150" : "w-max"} mt-2 p-2 px-4 text-sm select-none
+                                        ${
+                                            isMe
+                                                ? "self-end bg-white text-black rounded-tl-full rounded-tr-full rounded-bl-full"
+                                                : "self-start bg-black text-white rounded-tl-full rounded-tr-full rounded-br-full"
+                                        }`}
+                        onDoubleClick={(e) => handleMessageSelect(e, message)}
+                        onContextMenuCapture={(e) =>
+                            handleMessageSelect(e, message)
+                        }
                     >
                         <p>{message.content}</p>
                         <small className="opacity-60">
