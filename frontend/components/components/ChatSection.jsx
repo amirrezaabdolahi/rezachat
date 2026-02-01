@@ -22,12 +22,30 @@ const ChatSection = () => {
     }, [data?.messages?.length]);
 
     if (!currentChat) {
-        return <p>no chat selected</p>;
+        return (
+            <div className="flex w-full h-full items-center justify-center">
+                <p>no chat selected</p>
+            </div>
+        );
     }
-    if (isLoading) return <p>loading...</p>;
-    if (error) return <p>error loading messages</p>;
+    if (isLoading)
+        return (
+            <div className="flex w-full h-full items-center justify-center">
+                <p>loading...</p>
+            </div>
+        );
+    if (error)
+        return (
+            <div className="flex w-full h-full items-center justify-center">
+                <p>error loading messages</p>
+            </div>
+        );
     if (data?.messages?.length <= 0) {
-        return <p>no messages</p>;
+        return (
+            <div className="flex w-full h-full items-center justify-center">
+                <p>no messages</p>;
+            </div>
+        );
     }
 
     return (
@@ -36,7 +54,6 @@ const ChatSection = () => {
                 return <Message key={message.id} message={message} />;
             })}
             <div ref={bottomRef} />
-            
         </>
     );
 };

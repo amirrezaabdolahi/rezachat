@@ -48,7 +48,7 @@ const ChatInput = () => {
 
     return (
         <>
-            <div className="w-full flex gap-2 h-20 p-2 absolute bottom-0 right-0 left-0 bg-black/20 z-999 backdrop-blur-2xl rounded-lg ">
+            <div className="w-full flex gap-2 h-20 p-2 absolute bottom-0 right-0 left-0 bg-black/20 z-40 backdrop-blur-2xl rounded-lg ">
                 <div className=" w-full h-full bg-white rounded-full text-end flex items-center p-2">
                     <input
                         className="w-full h-full text-black outline-0"

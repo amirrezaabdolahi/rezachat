@@ -50,7 +50,7 @@ export default async function Home() {
                     <ProfileBar />
                     <div className="w-full max-h-190 flex flex-col ">
                         <div
-                            className="w-full flex-1 flex flex-col overflow-auto"
+                            className="w-full h-full flex flex-col overflow-auto"
                             style={{ scrollbarWidth: "none" }}
                         >
                             <ChatSection />
@@ -59,6 +59,7 @@ export default async function Home() {
                     <ChatInput />
                     <ContextMenu />
                 </div>
+                <SearchBox />
             </div>
         </div>
     );
