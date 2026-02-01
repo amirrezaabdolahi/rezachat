@@ -41,6 +41,9 @@ const ChatSection = () => {
         if (e.type === "dblclick") {
             dispatch(chatActions.setSelectedsMessage(message));
         }
+        if (e.type === "contextmenu") {
+            dispatch(chatActions.setOptionMessage(message))
+        }
     };
 
     return (

@@ -1,9 +1,20 @@
-import React from 'react'
+"use client";
+
+import React from "react";
+import { useSelector } from "react-redux";
 
 const ContextMenu = () => {
-  return (
-    <div>ContextMenu</div>
-  )
-}
+    const messageForMenu = useSelector((s) => s.chat.optionMessage);
 
-export default ContextMenu
+    if (!messageForMenu) {
+        return;
+    }
+
+    
+
+    return (
+      <div>ContextMenu</div>
+    );
+};
+
+export default ContextMenu;

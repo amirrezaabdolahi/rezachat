@@ -1,6 +1,7 @@
 import ChatHeader from "@/components/components/ChatHeader";
 import ChatInput from "@/components/components/ChatInput";
 import ChatSection from "@/components/components/ChatSection";
+import ContextMenu from "@/components/components/ContextMenu";
 import ProfileBar from "@/components/components/ProfileBar";
 import SearchBox from "@/components/components/Search";
 import UserSiderBar from "@/components/components/UserSiderBar";
@@ -54,6 +55,7 @@ export default async function Home() {
 
                         >
                             <ChatSection />
+                            <ContextMenu/>
                         </div>
                     </div>
                     <ChatInput />

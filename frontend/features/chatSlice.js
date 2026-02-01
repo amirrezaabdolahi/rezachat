@@ -5,6 +5,7 @@ const initialState = {
     chatInfo: {},
     messages: [],
     selectedMessages: [],
+    optionMessage : null
 };
 
 const chatSlice = createSlice({
@@ -47,6 +48,14 @@ const chatSlice = createSlice({
                 state.selectedMessages.push(message);
             }
         },
+        setOptionMessage : (state , action) => {
+            if (state.optionMessage?.id == action.payload.id) {
+                state.optionMessage = null
+                return
+            }
+
+            state.optionMessage = action.payload
+        }
     },
 });
 
