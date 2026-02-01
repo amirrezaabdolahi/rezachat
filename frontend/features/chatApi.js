@@ -7,7 +7,7 @@ export const chatApi = createApi({
         baseUrl: "/api/chat",
         credentials: "include",
     }),
-    tagTypes: ["Messages"],
+    tagTypes: ["Messages", "Chats"],
     endpoints: (builder) => ({
         getMessages: builder.query({
             query: (chatId) => `/${chatId}/`,
@@ -15,7 +15,8 @@ export const chatApi = createApi({
                 { type: "Messages", id: chatId },
             ],
         }),
-        sendMessages: builder.mutation({
+
+        sendMessage: builder.mutation({
             query: ({ chatId, content }) => ({
                 url: `/${chatId}/`,
                 method: "POST",
@@ -25,7 +26,20 @@ export const chatApi = createApi({
                 { type: "Messages", id: chatId },
             ],
         }),
+
+        createChat: builder.mutation({
+            query: ({ targetId }) => ({
+                url: `/create/`,
+                method: "POST",
+                body: { target_id : targetId },
+            }),
+            invalidatesTags: ["Chats"],
+        }),
     }),
 });
 
-export const { useGetMessagesQuery , useSendMessagesMutation } = chatApi;
+export const {
+    useGetMessagesQuery,
+    useSendMessageMutation,
+    useCreateChatMutation,
+} = chatApi;

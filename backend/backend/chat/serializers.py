@@ -62,9 +62,30 @@ class ChatSerializer(serializers.ModelSerializer):
 # --------------------------
 # Chat creating Serializer
 # --------------------------
+class ChatCreateSerializer(serializers.Serializer):
+    target_id = serializers.IntegerField()
 
-class ChatCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Chat
-        fields = ["name", "users"]
-        read_only_fields = ["id"]
+    def validate_target_id(self, value):
+        request = self.context["request"]
+
+        if value == request.user.id:
+            raise serializers.ValidationError("نمی‌تونی با خودت چت بسازی")
+
+        if not User.objects.filter(id=value).exists():
+            raise serializers.ValidationError("کاربر مورد نظر وجود ندارد")
+
+        return value
+
+    def create(self, validated_data):
+        user = self.context["request"].user
+        target_id = validated_data["target_id"]
+        target_user = User.objects.get(id=target_id)
+
+        # جلوگیری از duplicate chat
+        chat = Chat.objects.filter(users=user).filter(users=target_user).first()
+        if chat:
+            return chat
+
+        chat = Chat.objects.create()
+        chat.users.add(user, target_user)
+        return chat

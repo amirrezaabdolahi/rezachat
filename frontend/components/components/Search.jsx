@@ -58,7 +58,9 @@ const SearchBox = () => {
                 </div>
                 <div className="w-full flex flex-col gap-2 bg-black py-2 mt-2 rounded-lg ">
                     {isLoading && (
-                        <p className="text-white text-xs text-center">Loading...</p>
+                        <p className="text-white text-xs text-center">
+                            Loading...
+                        </p>
                     )}
                     {isError && <p className="text-red-500 text-xs">Error</p>}
                     {searchValue.length <= 0 && (

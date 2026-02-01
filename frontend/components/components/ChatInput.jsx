@@ -1,5 +1,5 @@
 "use client";
-import { useSendMessagesMutation } from "@/features/chatApi";
+import { useSendMessageMutation } from "@/features/chatApi";
 import { emojis } from "@/lib/imojisData";
 import { Send } from "lucide-react";
 import React, { useState } from "react";
@@ -23,7 +23,7 @@ const ChatInput = () => {
     const [isEmojiPanelOpen, setIsEmojiPanelOpen] = useState(false);
 
     const [sendMessage, { isError, isLoading, data }] =
-        useSendMessagesMutation();
+        useSendMessageMutation();
 
     const dispatch = useDispatch();
 

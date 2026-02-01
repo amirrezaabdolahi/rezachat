@@ -22,17 +22,35 @@ class UserChats(APIView):
             "chats": ser_chat.data,
         })
 
-
 class CreateChat(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        chat_create_serializer = ChatCreateSerializer(data=request.data)
-        if chat_create_serializer.is_valid():
-            chat_create_serializer.save()
-            return Response({"success": True, "data": chat_create_serializer.data}, status=status.HTTP_201_CREATED)
-        return Response({"success": False, "data": chat_create_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = ChatCreateSerializer(
+            data=request.data,
+            context={"request": request}
+        )
 
+        if serializer.is_valid():
+            chat = serializer.save()
+
+            return Response(
+                {
+                    "success": True,
+                    "data": ChatSerializer(chat).data,
+                },
+                status=status.HTTP_201_CREATED,
+            )
+
+        return Response(
+            {
+                "success": False,
+                "errors": serializer.errors,
+            },
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+        
+        
 
 class Chat(APIView):
     permission_classes = [IsAuthenticated]

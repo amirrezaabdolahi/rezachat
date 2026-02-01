@@ -1,20 +1,21 @@
-"use client"
+"use client";
 
+import { useCreateChatMutation } from "@/features/chatApi";
 import { ArrowRight } from "lucide-react";
 import React from "react";
 
-
-const SearchUserBox = (
-    {
-        user
-    }
-) => {
-
+const SearchUserBox = ({ user }) => {
+    const [createChat, { isLoading, data, isError }] = useCreateChatMutation();
 
     return (
         <div className="py-2 px-4 rounded-full text-sm flex items-center justify-between bg-white/20">
             <p className="">{user.username}</p>
-            <button className="bg-white text-black rounded-full px-4 cursor-pointer ">
+            <button
+                className="bg-white text-black rounded-full px-4 cursor-pointer "
+                onClick={() => {
+                    createChat(user.id);
+                }}
+            >
                 <ArrowRight className="" size={20} />
             </button>
         </div>

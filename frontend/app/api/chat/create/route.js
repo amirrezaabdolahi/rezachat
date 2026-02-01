@@ -1,27 +1,23 @@
 import { NextResponse } from "next/server";
 
-export async function GET(req) {
+export async function POST(request) {
     try {
-        const { searchParams } = new URL(req.url);
-        const q = searchParams.get("q");
+        const body = await request.json();
 
-        const params = new URLSearchParams();
+        const res = await fetch(
+            `${process.env.BASE_BACKEND_URL}api/chat/chats/create/`,
+            {
+                method: "POST",
 
-        params.append("q", q);
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: request.headers.get("authorization") || "",
+                },
 
-        const query = params.toString();
-
-        const url = `${process.env.BASE_BACKEND_URL}api/accounts/search-user/${
-            query ? `?${query}` : ""
-        }`;
-
-        const res = await fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
+                body: JSON.stringify(body),
             },
-            cache: "no-store",
-        });
+        );
+
         if (!res.ok) {
             const errorData = await res.json().catch(() => null);
 
