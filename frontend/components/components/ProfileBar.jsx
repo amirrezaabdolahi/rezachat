@@ -16,7 +16,7 @@ const ProfileBar = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className="rounded-xl absolute top-0 right-0 left-0 bg-black/20 backdrop-blur-2xl z-999 p-2 flex items-center justify-between ">
+        <div className="rounded-xl absolute top-0 right-0 left-0 bg-black/20 backdrop-blur-lg z-999 p-2 flex items-center justify-between ">
             <p className="text-xl font-bold text-white">
                 {currentChat?.name
                     ? currentChat.name

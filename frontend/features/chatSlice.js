@@ -5,7 +5,12 @@ const initialState = {
     chatInfo: {},
     messages: [],
     selectedMessages: [],
-    optionMessage : null
+    optionMessage: {
+        visible: false,
+        x: null,
+        y: null,
+        message: null,
+    },
 };
 
 const chatSlice = createSlice({
@@ -48,14 +53,29 @@ const chatSlice = createSlice({
                 state.selectedMessages.push(message);
             }
         },
-        setOptionMessage : (state , action) => {
-            if (state.optionMessage?.id == action.payload.id) {
-                state.optionMessage = null
-                return
+        setOptionMessage: (state, action) => {
+            const { visible, x, y, message } = action.payload;
+
+            if (state.optionMessage?.message?.id === message.id) {
+                state.optionMessage = {
+                    visible: false,
+                    x: null,
+                    y: null,
+                    message: null,
+                };
+                return;
             }
 
-            state.optionMessage = action.payload
-        }
+            state.optionMessage = { visible, x, y, message };
+        },
+        closeOptionMessage: (state) => {
+            state.optionMessage = {
+                visible: false,
+                x: null,
+                y: null,
+                message: null,
+            };
+        },
     },
 });
 
