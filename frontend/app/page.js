@@ -40,8 +40,8 @@ export default async function Home() {
     }
 
     return (
-        <div className="container h-screen mx-auto flex items-center">
-            <div className="grid w-full grid-cols-6 h-[90%] gap-2 ">
+        <div className="container h-screen mx-auto ">
+            <div className="grid w-full grid-cols-6 h-dvh gap-2 ">
                 <SideBar chats={chats} currentUser={currentUser} />
                 <MainChatContainer />
                 <SearchBox />
