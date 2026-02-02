@@ -13,7 +13,7 @@ const userSlice = createSlice({
             state.currentUser = action.payload;
         },
         setContact: (state, action) => {
-            if (action.payload.id === state.contact?.id) {
+            if (action.payload && action.payload.id === state.contact?.id) {
                 state.contact = null;
                 return;
             }

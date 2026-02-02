@@ -1,11 +1,10 @@
-import ChatHeader from "@/components/components/ChatHeader";
 import ChatInput from "@/components/components/ChatInput";
 import ChatSection from "@/components/components/ChatSection";
 import ContextMenu from "@/components/components/ContextMenu";
+import MainChatContainer from "@/components/components/MainChatContainer";
 import ProfileBar from "@/components/components/ProfileBar";
 import SearchBox from "@/components/components/Search";
-import UserSiderBar from "@/components/components/UserSiderBar";
-import { ArrowRight, CloudCog, Search } from "lucide-react";
+import SideBar from "@/components/components/SideBar";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -43,22 +42,8 @@ export default async function Home() {
     return (
         <div className="container h-screen mx-auto flex items-center">
             <div className="grid w-full grid-cols-6 h-[90%] gap-2 ">
-                <div className={`md:col-span-2 col-span-full h-full`}>
-                    <UserSiderBar chats={chats} currentUser={currentUser} />
-                </div>
-                <div className="md:col-span-4 col-span-full h-full flex flex-col px-2 py-10  relative">
-                    <ProfileBar />
-                    <div className="w-full max-h-190 flex flex-col ">
-                        <div
-                            className="w-full h-full flex flex-col overflow-auto"
-                            style={{ scrollbarWidth: "none" }}
-                        >
-                            <ChatSection />
-                        </div>
-                    </div>
-                    <ChatInput />
-                    <ContextMenu />
-                </div>
+                <SideBar chats={chats} currentUser={currentUser} />
+                <MainChatContainer />
                 <SearchBox />
             </div>
         </div>
