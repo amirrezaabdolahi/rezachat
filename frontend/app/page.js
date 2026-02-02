@@ -43,10 +43,10 @@ export default async function Home() {
     return (
         <div className="container h-screen mx-auto flex items-center">
             <div className="grid w-full grid-cols-6 h-[90%] gap-2 ">
-                <div className="col-span-2 h-full">
+                <div className={`md:col-span-2 col-span-full h-full`}>
                     <UserSiderBar chats={chats} currentUser={currentUser} />
                 </div>
-                <div className="col-span-4 h-full flex flex-col px-2 py-10  relative">
+                <div className="md:col-span-4 col-span-full h-full flex flex-col px-2 py-10  relative">
                     <ProfileBar />
                     <div className="w-full max-h-190 flex flex-col ">
                         <div

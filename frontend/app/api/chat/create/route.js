@@ -4,6 +4,10 @@ export async function POST(request) {
     try {
         const body = await request.json();
 
+        console.log(body);
+
+        console.log( request.headers.get("authorization") || "");
+
         const res = await fetch(
             `${process.env.BASE_BACKEND_URL}api/chat/chats/create/`,
             {
