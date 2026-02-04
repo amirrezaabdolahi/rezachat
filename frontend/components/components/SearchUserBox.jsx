@@ -13,7 +13,7 @@ const SearchUserBox = ({ user }) => {
             <button
                 className="bg-white text-black rounded-full px-4 cursor-pointer "
                 onClick={() => {
-                    createChat(user.id);
+                    createChat({targetId : user.id});
                 }}
             >
                 <ArrowRight className="" size={20} />

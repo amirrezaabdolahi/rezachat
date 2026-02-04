@@ -53,7 +53,7 @@ const ChatSection = () => {
             {data.messages.map((message) => {
                 return <Message key={message.id} message={message} />;
             })}
-            {/* <div ref={bottomRef} /> */}
+            <div ref={bottomRef} />
         </>
     );
 };

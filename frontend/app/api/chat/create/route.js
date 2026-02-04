@@ -1,12 +1,18 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-export async function POST(request) {
+export async function POST(req) {
     try {
-        const body = await request.json();
+        const body = await req.json();
 
-        console.log(body);
+        const cookieStore = await cookies();
+        const token = cookieStore.get("Token")?.value;
 
-        console.log( request.headers.get("authorization") || "");
+        if (!token) {
+            return new Response("Unauthorized", { status: 401 });
+        }
+
+        console.log("body is : ", body);
 
         const res = await fetch(
             `${process.env.BASE_BACKEND_URL}api/chat/chats/create/`,
@@ -15,10 +21,10 @@ export async function POST(request) {
 
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: request.headers.get("authorization") || "",
+                    Authorization: `Token ${token}`,
                 },
 
-                body: JSON.stringify(body),
+                body: JSON.stringify({ target_id: body.targetId }),
             },
         );
 

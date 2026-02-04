@@ -7,13 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userSliceActions } from "@/features/userSlice";
 
 
-const UserSiderBar = ({chats , currentUser}) => {
-
-    const dispath = useDispatch()
-
-    if (currentUser) {
-        dispath(userSliceActions.setUser(currentUser))
-    }
+const UserSiderBar = ({chats}) => {
 
     return (
         <div className="col-span-3 rounded-lg flex flex-col gap-2 p-2">

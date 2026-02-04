@@ -9,6 +9,11 @@ export const chatApi = createApi({
     }),
     tagTypes: ["Messages", "Chats"],
     endpoints: (builder) => ({
+        getChats: builder.query({
+            query: () => `/chats`,
+            providesTags: ["Chats"],
+        }),
+
         getMessages: builder.query({
             query: (chatId) => `/${chatId}/`,
             providesTags: (result, error, chatId) => [
@@ -29,7 +34,7 @@ export const chatApi = createApi({
 
         createChat: builder.mutation({
             query: ({ targetId }) => ({
-                url: `/create/`,
+                url: `/create`,
                 method: "POST",
                 body: { targetId },
             }),
@@ -39,6 +44,7 @@ export const chatApi = createApi({
 });
 
 export const {
+    useGetChatsQuery,
     useGetMessagesQuery,
     useSendMessageMutation,
     useCreateChatMutation,

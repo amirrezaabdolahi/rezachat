@@ -34,7 +34,9 @@ const ProfileBar = () => {
                     ? currentChat.name
                     : contact
                       ? contact.username
-                      : currentUser.username}
+                      : currentUser?.username
+                        ? currentUser?.username
+                        : "geust"}
             </p>
             <div className="flex items-center gap-2">
                 <div
