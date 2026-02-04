@@ -4,6 +4,7 @@ import UserSiderBar from "./UserSiderBar";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetChatsQuery } from "@/features/chatApi";
 import { userSliceActions } from "@/features/userSlice";
+import SideUserLoading from "./SideUserLoading";
 
 const SideBar = () => {
     const selectedChat = useSelector((s) => s.chat.selectedChat);
@@ -17,7 +18,16 @@ const SideBar = () => {
     }, [data, dispatch]);
 
     if (isLoading) {
-        return <p>loading...</p>;
+        return (
+            <div
+                className={` h-full gap-2 flex-col ${selectedChat ? "hidden md:flex col-span-full md:col-span-2" : "flex md:flex col-span-full md:col-span-2"} `}
+            >
+                <SideUserLoading />
+                <SideUserLoading />
+                <SideUserLoading />
+                <SideUserLoading />
+            </div>
+        );
     }
 
     return (

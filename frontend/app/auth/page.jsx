@@ -136,10 +136,9 @@ const page = () => {
                                     email: "",
                                     password: "",
                                 });
-
-                                router.push("/");
                             }
                         }
+                        router.push("/");
                         setAuthError(null);
                     }
                 } else {

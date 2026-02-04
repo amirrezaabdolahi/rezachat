@@ -4,6 +4,8 @@ export async function POST(request) {
     try {
         const body = await request.json();
 
+        console.log(JSON.stringify(body));
+
         const res = await fetch(
             `${process.env.BASE_BACKEND_URL}api/accounts/register/`,
             {
@@ -11,26 +13,30 @@ export async function POST(request) {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(body),
-            }
+                body: JSON.stringify({
+                    username: body.username,
+                    password: body.password,
+                    email: body.email,
+                }),
+            },
         );
 
         const data = await res.json();
         if (!res.ok) {
             return NextResponse.json(
-                { success: false, message: data.error },
-                { status: res.status }
+                { success: false, message: error.message || "خطای سرور" },
+                { status: 500 },
             );
         }
 
         return NextResponse.json(
             { success: true, data: data },
-            { status: res.status }
+            { status: res.status },
         );
     } catch (error) {
         return NextResponse.json(
             { success: false, message: error.detail },
-            { status: error.status }
+            { status: error.status },
         );
     }
 }
