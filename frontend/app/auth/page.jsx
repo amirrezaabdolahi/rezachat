@@ -172,6 +172,7 @@ const page = () => {
                             <input
                                 className="py-2 px-4 font-bold outline-0 border border-white/50 rounded-lg"
                                 placeholder="username"
+                                autoFocus
                                 value={formData.username}
                                 onChange={(e) => {
                                     setFormData({

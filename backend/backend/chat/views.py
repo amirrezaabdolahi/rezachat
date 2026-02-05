@@ -138,4 +138,4 @@ class DeleteMessages(APIView):
             sender=user
         )
         message.delete()
-        return Response({"success": True}, status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)

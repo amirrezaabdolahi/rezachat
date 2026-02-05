@@ -40,6 +40,14 @@ export const chatApi = createApi({
             }),
             invalidatesTags: ["Chats"],
         }),
+
+        deleteMessage: builder.mutation({
+            query: ({ messageId }) => ({
+                url: `/message/${messageId}/`,
+                method: "POST",
+            }),
+            invalidatesTags: ["Messages"],
+        }),
     }),
 });
 
@@ -48,4 +56,5 @@ export const {
     useGetMessagesQuery,
     useSendMessageMutation,
     useCreateChatMutation,
+    useDeleteMessageMutation
 } = chatApi;

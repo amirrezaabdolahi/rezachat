@@ -3,19 +3,27 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { chatActions } from "@/features/chatSlice";
+import { useDeleteMessageMutation } from "@/features/chatApi";
 
 const ContextMenu = () => {
     const dispatch = useDispatch();
 
     const optionMessage = useSelector((s) => s.chat.optionMessage);
+    const [deleteMessage, {}] = useDeleteMessageMutation();
 
     const { visible, x, y, message } = optionMessage;
-    // اگر منو خالیه یا پیام وجود نداره، منو رو render نکن
     if (!visible) return null;
 
     const handleClose = (e) => {
         e.preventDefault();
         dispatch(chatActions.closeOptionMessage());
+    };
+
+    const handleMessageDelete = () => {
+        if (optionMessage) {
+            deleteMessage({ messageId: message.id });
+            dispatch(chatActions.closeOptionMessage());
+        }
     };
 
     return (
@@ -42,7 +50,10 @@ const ContextMenu = () => {
                     <li className="p-1 hover:bg-gray-700 cursor-pointer">
                         Edit
                     </li>
-                    <li className="p-1 hover:bg-red-600 cursor-pointer">
+                    <li
+                        className="p-1 hover:bg-red-600 cursor-pointer"
+                        onClick={handleMessageDelete}
+                    >
                         Delete
                     </li>
                 </ul>
