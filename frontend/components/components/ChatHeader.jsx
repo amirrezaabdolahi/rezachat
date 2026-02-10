@@ -8,12 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "@/features/chatSlice";
 import { chats } from "@/fakeDatas";
 import { userSliceActions } from "@/features/userSlice";
+import { useGetMessagesQuery } from "@/features/chatApi";
 
 const ChatHeader = () => {
     const dispatch = useDispatch();
     const currentChatId = useSelector((state) => state.chat.selectedChat);
     const currentUser = useSelector((state) => state.user.currentUser);
-    const contact = useSelector((state) => state.user.contact)
+    const contact = useSelector((state) => state.user.contact);
 
     if (!currentChatId && !contact) {
         return (
@@ -56,7 +57,7 @@ const ChatHeader = () => {
                     className="bg-white/40 p-2 rounded-full hover:bg-white/50 active:bg-white/60"
                     onClick={() => {
                         dispatch(chatActions.selectChat(null));
-                        dispatch(userSliceActions.setContact(null))
+                        dispatch(userSliceActions.setContact(null));
                     }}
                 >
                     <ArrowLeft />

@@ -9,7 +9,6 @@ import SideUserLoading from "./SideUserLoading";
 const SideBar = () => {
     const selectedChat = useSelector((s) => s.chat.selectedChat);
     const dispatch = useDispatch();
-
     const { data, isLoading } = useGetChatsQuery();
     useEffect(() => {
         if (data?.user) {

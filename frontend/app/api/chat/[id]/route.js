@@ -1,16 +1,17 @@
 import { cookies } from "next/headers";
 
 export async function GET(request, { params }) {
-    const token = cookies().get("Token")?.value;
+    const cookiesStore = await cookies();
 
-    const res = await fetch(
-        `${process.env.BASE_BACKEND_URL}api/chat/${params.id}/`,
-        {
-            headers: {
-                Authorization: `Token ${token}`,
-            },
-        }
-    );
+    const token = cookiesStore.get("Token")?.value;
+
+    const { id } = await params;
+
+    const res = await fetch(`${process.env.BASE_BACKEND_URL}api/chat/${id}/`, {
+        headers: {
+            Authorization: `Token ${token}`,
+        },
+    });
 
     const data = await res.json();
     return Response.json(data);
@@ -33,7 +34,7 @@ export async function POST(request, { params }) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(body),
-        }
+        },
     );
 
     const data = await res.json();
