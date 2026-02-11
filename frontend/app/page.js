@@ -1,5 +1,5 @@
 
-import MainChatContainer from "@/components/components/MainChatContainer";
+import MainChatContainer from "@/features/chat/components/MainChatContainer";
 import SearchBox from "@/components/components/Search";
 import SideBar from "@/components/components/SideBar";
 import { cookies } from "next/headers";

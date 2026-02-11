@@ -3,8 +3,8 @@
 import React from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { chatActions } from "@/features/chatSlice";
-import { userSliceActions } from "@/features/userSlice";
+import { chatActions } from "@/features/chat/slice/chatSlice";
+import { userSliceActions } from "@/features/user/slice/userSlice";
 
 const UserSideBarBox = ({ chat }) => {
     const dispatch = useDispatch();

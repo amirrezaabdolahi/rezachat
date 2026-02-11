@@ -2,9 +2,9 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { chatActions } from "@/features/chatSlice";
-import { useGetMessagesQuery } from "@/features/chatApi";
-import Message from "./Message";
+import { chatActions } from "@/features/chat/slice/chatSlice";
+import { useGetMessagesQuery } from "@/features/chat/api/chatApi";
+import Message from "../../message/components/Message";
 
 const ChatSection = () => {
     const bottomRef = useRef(null);

@@ -2,8 +2,8 @@
 
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { chatActions } from "@/features/chatSlice";
-import { useDeleteMessageMutation } from "@/features/chatApi";
+import { chatActions } from "@/features/chat/slice/chatSlice";
+import { useDeleteMessageMutation } from "@/features/chat/api/chatApi";
 
 const ContextMenu = () => {
     const dispatch = useDispatch();

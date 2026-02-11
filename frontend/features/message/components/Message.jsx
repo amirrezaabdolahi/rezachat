@@ -1,5 +1,5 @@
 "use client";
-import { chatActions } from "@/features/chatSlice";
+import { chatActions } from "@/features/chat/slice/chatSlice";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 

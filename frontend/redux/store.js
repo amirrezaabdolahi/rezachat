@@ -1,8 +1,8 @@
-import { userReducer } from "@/features/userSlice";
+import { userReducer } from "@/features/user/slice/userSlice";
 import { configureStore } from "@reduxjs/toolkit";
-import { UserAuthApi } from "@/features/UserAuthApi";
-import { chatReducer } from "@/features/chatSlice";
-import { chatApi } from "@/features/chatApi";
+import { UserAuthApi } from "@/features/user/api/UserAuthApi";
+import { chatReducer } from "@/features/chat/slice/chatSlice";
+import { chatApi } from "@/features/chat/api/chatApi";
 import { UIReducer } from "@/features/uiSlice";
 import { uiApi } from "@/features/uiApi";
 

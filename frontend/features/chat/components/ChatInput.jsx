@@ -1,5 +1,5 @@
 "use client";
-import { useSendMessageMutation } from "@/features/chatApi";
+import { useSendMessageMutation } from "@/features/chat/api/chatApi";
 import { emojis } from "@/lib/imojisData";
 import { Send } from "lucide-react";
 import React, { useState } from "react";

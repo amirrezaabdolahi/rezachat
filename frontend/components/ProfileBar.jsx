@@ -7,8 +7,8 @@ import profileImg from "@/public/currentProfile.jpg";
 import { ArrowLeft, Search, Settings } from "lucide-react";
 import Link from "next/link";
 import { UiActions } from "@/features/uiSlice";
-import { chatActions } from "@/features/chatSlice";
-import { userSliceActions } from "@/features/userSlice";
+import { chatActions } from "@/features/chat/slice/chatSlice";
+import { userSliceActions } from "@/features/user/slice/userSlice";
 
 const ProfileBar = () => {
     const currentUser = useSelector((s) => s.user.currentUser);

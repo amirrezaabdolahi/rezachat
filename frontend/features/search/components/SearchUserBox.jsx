@@ -1,6 +1,6 @@
 "use client";
 
-import { useCreateChatMutation } from "@/features/chatApi";
+import { useCreateChatMutation } from "@/features/chat/api/chatApi";
 import { ArrowRight } from "lucide-react";
 import React from "react";
 

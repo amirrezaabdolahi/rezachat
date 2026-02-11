@@ -2,10 +2,10 @@
 
 import React from "react";
 import { useSelector } from "react-redux";
-import ProfileBar from "./ProfileBar";
+import ProfileBar from "../../../components/ProfileBar";
 import ChatSection from "./ChatSection";
 import ChatInput from "./ChatInput";
-import ContextMenu from "./ContextMenu";
+import ContextMenu from "../../../components/ContextMenu";
 
 const MainChatContainer = () => {
     const selectedChat = useSelector((s) => s.chat.selectedChat);

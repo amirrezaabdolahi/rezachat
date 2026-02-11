@@ -4,7 +4,7 @@ import React from "react";
 import UserSideBarBox from "./UserSideBarBox";
 import { Plus } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { userSliceActions } from "@/features/userSlice";
+import { userSliceActions } from "@/features/user/slice/userSlice";
 
 
 const UserSiderBar = ({chats}) => {

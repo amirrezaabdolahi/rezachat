@@ -5,10 +5,10 @@ import Image from "next/image";
 import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { chatActions } from "@/features/chatSlice";
+import { chatActions } from "@/features/chat/slice/chatSlice";
 import { chats } from "@/fakeDatas";
-import { userSliceActions } from "@/features/userSlice";
-import { useGetMessagesQuery } from "@/features/chatApi";
+import { userSliceActions } from "@/features/user/slice/userSlice";
+import { useGetMessagesQuery } from "@/features/chat/api/chatApi";
 
 const ChatHeader = () => {
     const dispatch = useDispatch();

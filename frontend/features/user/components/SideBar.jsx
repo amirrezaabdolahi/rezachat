@@ -2,8 +2,8 @@
 import React, { useEffect } from "react";
 import UserSiderBar from "./UserSiderBar";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetChatsQuery } from "@/features/chatApi";
-import { userSliceActions } from "@/features/userSlice";
+import { useGetChatsQuery } from "@/features/chat/api/chatApi";
+import { userSliceActions } from "@/features/user/slice/userSlice";
 import SideUserLoading from "./SideUserLoading";
 
 const SideBar = () => {
