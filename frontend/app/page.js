@@ -1,40 +1,16 @@
 
 import MainChatContainer from "@/features/chat/components/MainChatContainer";
-import SearchBox from "@/components/components/Search";
-import SideBar from "@/components/components/SideBar";
+import SearchBox from "@/features/search/components/Search";
+import SideBar from "@/features/user/components/SideBar";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import React from "react";
 
 export default async function Home() {
     const token = (await cookies()).get("Token");
-
-    // let chats = [];
-    // let currentUser = null;
-
     if (!token?.value) {
         redirect("/auth");
     }
-
-    // try {
-    //     const response = await fetch(
-    //         `${process.env.BASE_BACKEND_URL}api/chat/chats/`,
-    //         {
-    //             method: "GET",
-    //             headers: {
-    //                 Authorization: `Token ${token.value}`,
-    //             },
-    //         },
-    //     );
-
-    //     if (!response.ok) throw new Error("Network response was not ok");
-
-    //     const data = await response.json();
-    //     chats = data?.chats;
-    //     currentUser = data?.user;
-    // } catch (err) {
-    //     console.error(err);
-    // }
 
     return (
         <div className="container h-screen mx-auto ">

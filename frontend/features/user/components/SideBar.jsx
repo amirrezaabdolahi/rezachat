@@ -15,7 +15,7 @@ const SideBar = () => {
             dispatch(userSliceActions.setUser(data.user));
         }
     }, [data, dispatch]);
-
+    
     if (isLoading) {
         return (
             <div

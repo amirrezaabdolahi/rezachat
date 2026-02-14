@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { chatActions } from "@/features/chat/slice/chatSlice";
-import { useGetMessagesQuery } from "@/features/chat/api/chatApi";
+import { useSelector } from "react-redux";
 import Message from "../../message/components/Message";
+import { useGetMessagesQuery } from "@/features/message/api/messageApi";
 
 const ChatSection = () => {
     const bottomRef = useRef(null);
@@ -14,7 +13,7 @@ const ChatSection = () => {
         {
             skip: !currentChat,
             pollingInterval: 2000,
-            refetchOnMountOrArgChange: true, 
+            refetchOnMountOrArgChange: true,
             refetchOnFocus: true,
             refetchOnReconnect: true,
         },

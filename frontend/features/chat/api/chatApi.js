@@ -13,25 +13,6 @@ export const chatApi = createApi({
             query: () => `/chats`,
             providesTags: ["Chats"],
         }),
-
-        getMessages: builder.query({
-            query: (chatId) => `/${chatId}/`,
-            providesTags: (result, error, chatId) => [
-                { type: "Messages", id: chatId },
-            ],
-        }),
-
-        sendMessage: builder.mutation({
-            query: ({ chatId, content }) => ({
-                url: `/${chatId}/`,
-                method: "POST",
-                body: { content },
-            }),
-            invalidatesTags: (result, error, { chatId }) => [
-                { type: "Messages", id: chatId },
-            ],
-        }),
-
         createChat: builder.mutation({
             query: ({ targetId }) => ({
                 url: `/create`,
@@ -39,14 +20,6 @@ export const chatApi = createApi({
                 body: { targetId },
             }),
             invalidatesTags: ["Chats"],
-        }),
-
-        deleteMessage: builder.mutation({
-            query: ({ messageId }) => ({
-                url: `/message/${messageId}/`,
-                method: "POST",
-            }),
-            invalidatesTags: ["Messages"],
         }),
     }),
 });
@@ -56,5 +29,5 @@ export const {
     useGetMessagesQuery,
     useSendMessageMutation,
     useCreateChatMutation,
-    useDeleteMessageMutation
+    useDeleteMessageMutation,
 } = chatApi;

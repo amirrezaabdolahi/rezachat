@@ -7,7 +7,6 @@ export async function POST(req, { params }) {
         const token = cookieStore.get("Token")?.value;
         const { id } = await params;
 
-        console.log("+++++++>", token, id);
         if (!token) {
             return NextResponse.json(
                 { error: "Unauthorized" },
@@ -34,7 +33,7 @@ export async function POST(req, { params }) {
                 { status: res.status },
             );
         }
-        return NextResponse.json({ success: true }, { status: 204 });
+        return NextResponse.json({}, { status: 204 });
     } catch (error) {
         return NextResponse.json(
             { error: "Failed to delete message" },

@@ -5,6 +5,7 @@ import { chatReducer } from "@/features/chat/slice/chatSlice";
 import { chatApi } from "@/features/chat/api/chatApi";
 import { UIReducer } from "@/features/uiSlice";
 import { uiApi } from "@/features/uiApi";
+import { messageApi } from "@/features/message/api/messageApi";
 
 const store = configureStore({
     reducer: {
@@ -13,13 +14,15 @@ const store = configureStore({
         ui: UIReducer,
         [UserAuthApi.reducerPath]: UserAuthApi.reducer,
         [chatApi.reducerPath]: chatApi.reducer,
+        [messageApi.reducerPath]: messageApi.reducer,
         [uiApi.reducerPath]: uiApi.reducer,
     },
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware().concat(
             UserAuthApi.middleware,
             chatApi.middleware,
-            uiApi.middleware
+            messageApi.middleware,
+            uiApi.middleware,
         );
     },
 });

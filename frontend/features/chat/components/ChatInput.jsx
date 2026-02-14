@@ -1,5 +1,5 @@
 "use client";
-import { useSendMessageMutation } from "@/features/chat/api/chatApi";
+import { useSendMessageMutation } from "@/features/message/api/messageApi";
 import { emojis } from "@/lib/imojisData";
 import { Send } from "lucide-react";
 import React, { useState } from "react";
@@ -15,9 +15,9 @@ const ChatInput = () => {
             emojisType === "all"
                 ? obj.icons
                 : obj.type === emojisType
-                ? obj.icons
-                : []
-        )
+                  ? obj.icons
+                  : [],
+        ),
     );
 
     const [isEmojiPanelOpen, setIsEmojiPanelOpen] = useState(false);
@@ -70,7 +70,7 @@ const ChatInput = () => {
                 </button>
                 <button
                     onClick={handleSendMessage}
-                    disabled={isLoading }
+                    disabled={isLoading}
                     className="bg-white hover:bg-white/70 active:bg-white/80 active:scale-[0.9] transition-all text-black w-20 h-full rounded-full flex items-center justify-center cursor-pointer"
                 >
                     <Send />
@@ -105,7 +105,7 @@ const ChatInput = () => {
                                         className="text-xl text-center cursor-pointer"
                                         onClick={() =>
                                             setInputMessage(
-                                                (prev) => prev + icon.icon
+                                                (prev) => prev + icon.icon,
                                             )
                                         }
                                     >
