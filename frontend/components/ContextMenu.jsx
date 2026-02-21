@@ -4,9 +4,10 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { chatActions } from "@/features/chat/slice/chatSlice";
 import { useDeleteMessageMutation } from "@/features/message/api/messageApi";
+import { useAppDispatch } from "@/redux/hooks";
 
 const ContextMenu = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const optionMessage = useSelector((s) => s.chat.optionMessage);
     const [deleteMessage, {}] = useDeleteMessageMutation();

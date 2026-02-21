@@ -1,14 +1,14 @@
 "use client";
 import React, { useEffect } from "react";
 import UserSiderBar from "./UserSiderBar";
-import { useDispatch, useSelector } from "react-redux";
 import { useGetChatsQuery } from "@/features/chat/api/chatApi";
 import { userSliceActions } from "@/features/user/slice/userSlice";
 import SideUserLoading from "./SideUserLoading";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 const SideBar = () => {
-    const selectedChat = useSelector((s) => s.chat.selectedChat);
-    const dispatch = useDispatch();
+    const selectedChat = useAppSelector((s) => s.chat.selectedChat);
+    const dispatch = useAppDispatch();
     const { data, isLoading } = useGetChatsQuery();
     useEffect(() => {
         if (data?.user) {

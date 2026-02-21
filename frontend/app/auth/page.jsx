@@ -5,6 +5,7 @@ import {
     useSignupUserMutation,
 } from "@/features/user/api/UserAuthApi";
 import { SetRefreshCookie, SetTokenCookie } from "@/lib/setCookie";
+import { useAppDispatch } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -22,7 +23,7 @@ const page = () => {
 
     const [errors, setErrors] = useState({});
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [
         signin,
         {

@@ -1,6 +1,7 @@
 "use client";
 import { useSendMessageMutation } from "@/features/message/api/messageApi";
 import { emojis } from "@/lib/imojisData";
+import { useAppDispatch } from "@/redux/hooks";
 import { Send } from "lucide-react";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +26,7 @@ const ChatInput = () => {
     const [sendMessage, { isError, isLoading, data }] =
         useSendMessageMutation();
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleSendMessage = async () => {
         if (!currentChat || !inputMessage.trim()) return;

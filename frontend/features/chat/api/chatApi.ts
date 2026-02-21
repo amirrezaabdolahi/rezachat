@@ -1,5 +1,11 @@
 // features/chatApi.js
+import { Chat } from "@/types/chat";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
+interface CreateChatPayload {
+    targetId: number
+}
+
 
 export const chatApi = createApi({
     reducerPath: "chatApi",
@@ -9,11 +15,11 @@ export const chatApi = createApi({
     }),
     tagTypes: ["Messages", "Chats"],
     endpoints: (builder) => ({
-        getChats: builder.query({
+        getChats: builder.query<Chat[], void>({
             query: () => `/chats`,
             providesTags: ["Chats"],
         }),
-        createChat: builder.mutation({
+        createChat: builder.mutation<Chat, CreateChatPayload>({
             query: ({ targetId }) => ({
                 url: `/create`,
                 method: "POST",
@@ -24,10 +30,4 @@ export const chatApi = createApi({
     }),
 });
 
-export const {
-    useGetChatsQuery,
-    useGetMessagesQuery,
-    useSendMessageMutation,
-    useCreateChatMutation,
-    useDeleteMessageMutation,
-} = chatApi;
+export const { useGetChatsQuery, useCreateChatMutation } = chatApi;

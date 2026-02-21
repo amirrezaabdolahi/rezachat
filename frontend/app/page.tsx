@@ -4,9 +4,9 @@ import SearchBox from "@/features/search/components/Search";
 import SideBar from "@/features/user/components/SideBar";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import React from "react";
+import React, { JSX } from "react";
 
-export default async function Home() {
+export default async function Home() : Promise<JSX.Element> {
     const token = (await cookies()).get("Token");
     if (!token?.value) {
         redirect("/auth");

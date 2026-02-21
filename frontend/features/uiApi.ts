@@ -1,5 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+interface SearchUsersResponse {
+    id: number
+    username: string
+    email: string
+}
+
 export const uiApi = createApi({
     reducerPath: "uiApi",
     baseQuery: fetchBaseQuery({
@@ -8,7 +14,7 @@ export const uiApi = createApi({
     }),
 
     endpoints: (builder) => ({
-        searchUsers: builder.query({
+        searchUsers: builder.query<SearchUsersResponse[], string>({
             query: (q) => ({
                 url: `/?q=${q}`,
             }),

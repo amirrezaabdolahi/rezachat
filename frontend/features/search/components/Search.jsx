@@ -6,6 +6,7 @@ import SearchUserBox from "./SearchUserBox";
 import { useLazySearchUsersQuery, useSearchUsersQuery } from "@/features/uiApi";
 import { useDispatch, useSelector } from "react-redux";
 import { UiActions } from "@/features/uiSlice";
+import { useAppDispatch } from "@/redux/hooks";
 
 const SearchBox = () => {
     const [searchValue, setSearchValue] = useState("");
@@ -13,7 +14,7 @@ const SearchBox = () => {
         useLazySearchUsersQuery();
 
     const isSearching = useSelector((s) => s.ui.isSearching);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const [users, setUsers] = useState([]);
 

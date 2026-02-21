@@ -1,6 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { User } from "@/types/user";
 
-const initialState = {
+
+
+interface UserState {
+    currentUser: User | null
+    contact: User | null
+}
+
+const initialState: UserState = {
     currentUser: null,
     contact: null,
 };
@@ -9,10 +17,10 @@ const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        setUser: (state, action) => {
+        setUser: (state, action: PayloadAction<User | null>) => {
             state.currentUser = action.payload;
         },
-        setContact: (state, action) => {
+        setContact: (state, action: PayloadAction<User | null>) => {
             if (action.payload && action.payload.id === state.contact?.id) {
                 state.contact = null;
                 return;

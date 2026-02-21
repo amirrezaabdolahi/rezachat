@@ -11,7 +11,7 @@ import { userSliceActions } from "@/features/user/slice/userSlice";
 import { useGetMessagesQuery } from "@/features/chat/api/chatApi";
 
 const ChatHeader = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const currentChatId = useSelector((state) => state.chat.selectedChat);
     const currentUser = useSelector((state) => state.user.currentUser);
     const contact = useSelector((state) => state.user.contact);

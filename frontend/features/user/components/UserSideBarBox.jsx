@@ -5,9 +5,10 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "@/features/chat/slice/chatSlice";
 import { userSliceActions } from "@/features/user/slice/userSlice";
+import { useAppDispatch } from "@/redux/hooks";
 
 const UserSideBarBox = ({ chat }) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
 
     const contact = chat.users.length >= 2 ? chat.users[1] : chat.users;

@@ -1,5 +1,6 @@
 "use client";
 import { chatActions } from "@/features/chat/slice/chatSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -12,7 +13,7 @@ const Message = ({ message }) => {
             minute: "2-digit",
         });
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleMessageDoubleClick = (e, message) => {
         e.preventDefault();

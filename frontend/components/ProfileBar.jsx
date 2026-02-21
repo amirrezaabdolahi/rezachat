@@ -9,13 +9,14 @@ import Link from "next/link";
 import { UiActions } from "@/features/uiSlice";
 import { chatActions } from "@/features/chat/slice/chatSlice";
 import { userSliceActions } from "@/features/user/slice/userSlice";
+import { useAppDispatch } from "@/redux/hooks";
 
 const ProfileBar = () => {
     const currentUser = useSelector((s) => s.user.currentUser);
     const currentChat = useSelector((s) => s.chat.chatInfo);
     const contact = useSelector((s) => s.user.contact);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     return (
         <div className="rounded-xl absolute top-0 right-0 left-0 bg-black/20 backdrop-blur-lg z-40 p-2 flex items-center justify-between ">
