@@ -2,19 +2,18 @@
 
 import Image from "next/image";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import profileImg from "@/public/currentProfile.jpg";
 import { ArrowLeft, Search, Settings } from "lucide-react";
 import Link from "next/link";
 import { UiActions } from "@/features/uiSlice";
 import { chatActions } from "@/features/chat/slice/chatSlice";
 import { userSliceActions } from "@/features/user/slice/userSlice";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 const ProfileBar = () => {
-    const currentUser = useSelector((s) => s.user.currentUser);
-    const currentChat = useSelector((s) => s.chat.chatInfo);
-    const contact = useSelector((s) => s.user.contact);
+    const currentUser = useAppSelector((s) => s.user.currentUser);
+    const currentChat = useAppSelector((s) => s.chat.chatInfo);
+    const contact = useAppSelector((s) => s.user.contact);
 
     const dispatch = useAppDispatch();
 
@@ -23,7 +22,7 @@ const ProfileBar = () => {
             <div
                 className="w-13 h-13 hover:bg-white/30 transition-all rounded-full bg-white/20 flex items-center justify-center"
                 onClick={() => {
-                    dispatch(chatActions.selectChatInfo({}));
+                    dispatch(chatActions.selectChatInfo(null));
                     dispatch(chatActions.selectChat(null));
                     dispatch(userSliceActions.setContact(null));
                 }}

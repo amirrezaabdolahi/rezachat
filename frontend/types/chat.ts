@@ -3,10 +3,22 @@ import { User } from "./user";
 
 export interface Chat {
     id: number;
-    name: string,
+    name: string | null,
     users: User[],
     created_at: string,
     messages?: Message[]
+}
+
+export interface GetChatResponeseChat {
+    id: number;
+    name: string | null,
+    users: User[],
+    created_at: string,
+}
+
+export interface GetChatsResponse {
+    user: User
+    chats?: GetChatResponeseChat[] | null
 }
 
 

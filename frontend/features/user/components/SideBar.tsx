@@ -6,21 +6,23 @@ import { userSliceActions } from "@/features/user/slice/userSlice";
 import SideUserLoading from "./SideUserLoading";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
-const SideBar = () => {
+const SideBar: React.FC = () => {
     const selectedChat = useAppSelector((s) => s.chat.selectedChat);
     const dispatch = useAppDispatch();
     const { data, isLoading } = useGetChatsQuery();
+
     useEffect(() => {
         if (data?.user) {
             dispatch(userSliceActions.setUser(data.user));
         }
     }, [data, dispatch]);
-    
+
+    const baseClasses = "h-full col-span-full md:col-span-2";
+    const visibility = selectedChat ? "hidden md:flex" : "flex";
+
     if (isLoading) {
         return (
-            <div
-                className={` h-full gap-2 flex-col ${selectedChat ? "hidden md:flex col-span-full md:col-span-2" : "flex md:flex col-span-full md:col-span-2"} `}
-            >
+            <div className={`${baseClasses} ${visibility} gap-2 flex-col`}>
                 <SideUserLoading />
                 <SideUserLoading />
                 <SideUserLoading />
@@ -31,9 +33,9 @@ const SideBar = () => {
 
     return (
         <div
-            className={` h-full ${selectedChat ? "hidden md:block col-span-full md:col-span-2" : "block md:block col-span-full md:col-span-2"} `}
+            className={`${baseClasses} ${selectedChat ? "hidden md:block" : "block"}`}
         >
-            <UserSiderBar chats={data?.chats} />
+            <UserSiderBar chats={data?.chats ?? []} />
         </div>
     );
 };

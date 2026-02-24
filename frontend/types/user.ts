@@ -2,6 +2,8 @@ export interface User {
     id: number
     username: string
     email?: string
+    profile?: string
+    status?: "online" | "offline"
 }
 
 export interface SigninPayload {

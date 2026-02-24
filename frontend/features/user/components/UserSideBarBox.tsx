@@ -2,21 +2,21 @@
 
 import React from "react";
 import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "@/features/chat/slice/chatSlice";
 import { userSliceActions } from "@/features/user/slice/userSlice";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { Chat } from "@/types/chat";
 
-const UserSideBarBox = ({ chat }) => {
+const UserSideBarBox = ({ chat }: { chat: Chat }) => {
     const dispatch = useAppDispatch();
 
+    const currentUser = useAppSelector((state) => state.user.currentUser);
 
-    const contact = chat.users.length >= 2 ? chat.users[1] : chat.users;
+    const contact = chat.users.find((u) => u.id !== currentUser?.id);
 
     return (
         <div
-            key={chat.id}
-            className="w-full overflow-hidden p-2 flex items-center justify-between bg-white/30 rounded-lg hover:bg-white/40 select-none active:bg-white/50 "
+                className="w-full overflow-hidden p-2 flex items-center justify-between bg-white/30 rounded-lg hover:bg-white/40 select-none active:bg-white/50 "
             onClick={() => {
                 dispatch(chatActions.selectChat(chat.id));
                 dispatch(chatActions.selectChatInfo(chat));

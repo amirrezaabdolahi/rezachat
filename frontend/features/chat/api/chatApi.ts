@@ -1,5 +1,5 @@
 // features/chatApi.js
-import { Chat } from "@/types/chat";
+import { Chat, GetChatsResponse } from "@/types/chat";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 interface CreateChatPayload {
@@ -15,7 +15,7 @@ export const chatApi = createApi({
     }),
     tagTypes: ["Messages", "Chats"],
     endpoints: (builder) => ({
-        getChats: builder.query<Chat[], void>({
+        getChats: builder.query<GetChatsResponse, void>({
             query: () => `/chats`,
             providesTags: ["Chats"],
         }),
