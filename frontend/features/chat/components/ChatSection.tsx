@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useRef } from "react";
 import Message from "../../message/components/Message";
 import { useGetMessagesQuery } from "@/features/message/api/messageApi";
+import { useAppSelector } from "@/redux/hooks";
 
 const ChatSection = () => {
     const bottomRef = useRef(null);
-    const currentChat = useSelector((s) => s.chat.selectedChat);
+    const currentChat = useAppSelector((s) => s.chat.selectedChat);
     const { data, isLoading, error, refetch } = useGetMessagesQuery(
         currentChat,
         {

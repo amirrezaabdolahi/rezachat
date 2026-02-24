@@ -1,13 +1,13 @@
 "use client";
 import { chatActions } from "@/features/chat/slice/chatSlice";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { Message as MessageType } from "@/types/message";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 
-const Message = ({ message }) => {
-    const currentUser = useSelector((s) => s.user.currentUser);
+const Message = ({ message }: { message: MessageType }): React.JSX.Element => {
+    const currentUser = useAppSelector((s) => s.user.currentUser);
     const isMe = message.sender === currentUser.id;
-    const formatTime = (date) =>
+    const formatTime = (date: string | null) =>
         new Date(date).toLocaleTimeString("en-GB", {
             hour: "2-digit",
             minute: "2-digit",
@@ -15,16 +15,22 @@ const Message = ({ message }) => {
 
     const dispatch = useAppDispatch();
 
-    const handleMessageDoubleClick = (e, message) => {
+    const handleMessageDoubleClick = (
+        e: React.MouseEvent<HTMLDivElement>,
+        message: MessageType,
+    ) => {
         e.preventDefault();
-        dispatch(chatActions.setSelectedsMessage(message));
+        dispatch(chatActions.setSelectedMessage(message));
     };
 
-    const handleMessageRigthClick = (e, message) => {
+    const handleMessageRigthClick = (
+        e: React.MouseEvent<HTMLDivElement>,
+        message: MessageType,
+    ) => {
         e.preventDefault();
         dispatch(
             chatActions.setOptionMessage({
-                visible : true,
+                visible: true,
                 x: e.clientX,
                 y: e.clientY,
                 message: message,
