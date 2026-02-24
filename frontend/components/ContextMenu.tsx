@@ -1,21 +1,20 @@
 "use client";
 
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { chatActions } from "@/features/chat/slice/chatSlice";
 import { useDeleteMessageMutation } from "@/features/message/api/messageApi";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 const ContextMenu = () => {
     const dispatch = useAppDispatch();
 
-    const optionMessage = useSelector((s) => s.chat.optionMessage);
+    const optionMessage = useAppSelector((s) => s.chat.optionMessage);
     const [deleteMessage, {}] = useDeleteMessageMutation();
 
     const { visible, x, y, message } = optionMessage;
     if (!visible) return null;
 
-    const handleClose = (e) => {
+    const handleClose = (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
         dispatch(chatActions.closeOptionMessage());
     };

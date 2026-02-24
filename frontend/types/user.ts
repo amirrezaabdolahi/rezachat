@@ -22,3 +22,8 @@ export interface AuthResponse {
     user: User
     token?: string // optional if your backend returns JWT or session token
 }
+
+export interface SearchedUser {
+    id: number,
+    username: string
+}

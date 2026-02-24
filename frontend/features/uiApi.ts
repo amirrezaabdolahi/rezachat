@@ -1,9 +1,11 @@
+import { SearchedUser } from "@/types/user";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+
+
 interface SearchUsersResponse {
-    id: number
-    username: string
-    email: string
+    success: boolean,
+    data: SearchedUser[] | null
 }
 
 export const uiApi = createApi({
@@ -14,7 +16,7 @@ export const uiApi = createApi({
     }),
 
     endpoints: (builder) => ({
-        searchUsers: builder.query<SearchUsersResponse[], string>({
+        searchUsers: builder.query<SearchUsersResponse, string>({
             query: (q) => ({
                 url: `/?q=${q}`,
             }),

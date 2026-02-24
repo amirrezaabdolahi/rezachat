@@ -3,20 +3,17 @@
 import { Search } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import SearchUserBox from "./SearchUserBox";
-import { useLazySearchUsersQuery, useSearchUsersQuery } from "@/features/uiApi";
-import { useDispatch, useSelector } from "react-redux";
+import { useLazySearchUsersQuery } from "@/features/uiApi";
 import { UiActions } from "@/features/uiSlice";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 const SearchBox = () => {
-    const [searchValue, setSearchValue] = useState("");
+    const [searchValue, setSearchValue] = useState<string>("");
     const [searchUsers, { data, isLoading, isError }] =
         useLazySearchUsersQuery();
 
-    const isSearching = useSelector((s) => s.ui.isSearching);
+    const isSearching = useAppSelector((s) => s.ui.isSearching);
     const dispatch = useAppDispatch();
-
-    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         if (!searchValue.trim()) return;
